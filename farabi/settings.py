@@ -25,8 +25,17 @@ SECRET_KEY = 'django-insecure-6$j01xe=4$_!ljgc@%wva*bu6lc8ot)ql_y071shth7+a^x%ws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_HEADERS = '*'
+CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080", 'http://127.0.0.1:8080', 'http://127.0.0.1:8000']
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080", 'http://127.0.0.1:8080', 'http://127.0.0.1:8000'
+]
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+    'http://127.0.0.1:8080','http://127.0.0.1:8000',
+)
 
 # Application definition
 
@@ -37,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'farabi_admin',
+    'shop',
 ]
 
 MIDDLEWARE = [
@@ -112,6 +124,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
