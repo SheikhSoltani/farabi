@@ -25,3 +25,11 @@ def single_item(request):
     return Response({
         'item': aboba
     })
+
+
+@api_view(['GET'])
+def items(request):
+    return Response({
+        'items': ItemSerializer(Item.objects.all(), many=True).data
+    })
+
