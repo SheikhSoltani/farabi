@@ -5,16 +5,23 @@
 </template>
   
 <script>
+import {url} from '@/js/config.js';
 import axios from 'axios';
 export default {
     name: 'ItemPage',
     props: {
         slug: String,
     },
+    data(){
+        return{
+          item:[
+          ],
+        }
+    },
     methods:{
         async  get_items() { 
             const result = await axios
-            .get("api/item/"+this.slug)
+            .get(url+"api/item?slug="+this.slug)
             .then((res) => {
                 return res.data;
             })
@@ -25,13 +32,8 @@ export default {
     },
     async mounted() {
         setTimeout(async ()=>{
-            let arr =await this.get_items()
-            console.log(arr);
-            if(arr){
-            this.site.push({title:arr.site.title,get_blocks:arr.site.get_blocks})
-            }
-            this.sortSite=this.site;
-            this.order=this.sortSite.length;
+            this.item =await this.get_items()
+            console.log(this.item);
         }, 100);
     },
 }

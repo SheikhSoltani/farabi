@@ -23,5 +23,5 @@ def single_item(request):
     aboba = ItemSerializer(item, many=False).data
     logger.info(aboba)
     return Response({
-        'item': 1
+        'item': aboba
     })

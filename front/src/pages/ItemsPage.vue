@@ -5,13 +5,14 @@
 </template>
   
 <script>
+import {url} from '@/js/config.js';
 import axios from 'axios';
 export default {
   name: 'ItemsPage',
     methods:{
         async  get_items() { 
             const result = await axios
-            .get("api/items")
+            .get(url+"api/items")
             .then((res) => {
                 return res.data;
             })

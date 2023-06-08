@@ -7,6 +7,7 @@
 <script>
 
 
+import {url} from '@/js/config.js';
 //import {getConfig} from '@/js/cookie.js';
 import axios from 'axios';
 
@@ -18,7 +19,7 @@ export default {
         /*
         deleteItem(id){
             axios.post(
-                'http://127.0.0.1:8080/api/delete_block', { 'block_id':id }, getConfig('application/json')
+                url+'api/delete_block', { 'block_id':id }, getConfig('application/json')
             ).then(data =>{
                 if(data.data.status){
                     let child = document.getElementById(id);
@@ -41,7 +42,7 @@ export default {
         },*/
         async  get_items() { 
             const result = await axios
-            .get("api/cart")
+            .get(url+"api/cart")
             .then((res) => {
                 return res.data;
             })
