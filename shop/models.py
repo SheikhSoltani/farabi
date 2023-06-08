@@ -1,5 +1,6 @@
+from pytils.translit import slugify
+
 from django.db import models
-from django.template.defaultfilters import slugify
 
 
 class Item(models.Model):
