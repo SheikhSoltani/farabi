@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from shop.models import Tag, Item
 from .services import authenticate_user
 
 import logging
@@ -39,3 +40,16 @@ def log_out(request):
     return Response({
         'result': True
     })
+
+
+@api_view(['POST'])
+def add_tag(request):
+    Tag.create_tag(request.data)
+    return Response({
+        'created': True
+    })
+
+#
+# @api_view(['POST'])
+# def add_item(request):
+#     Item.create_item(request.data)

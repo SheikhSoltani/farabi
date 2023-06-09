@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from pytils.translit import slugify
 
 from django.db import models
@@ -30,6 +31,38 @@ class Item(models.Model):
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
+    # @staticmethod
+    # def create_item(info_dict):
+    #     
+    #     Item.objects.create(
+    #         name=,
+    #         image=,
+    #         description=,
+    #         tag=get_object_or_404(Tag, id=),
+    #         purpose=,
+    #         color=,
+    #         degree_of_gloss=,
+    #         warranty=,
+    #         expiration_date=,
+    #         composition=,
+    #         method_of_use=,
+    #         expense=,
+    #         flammable=,
+    #         traits=
+    #     )
+
+    @staticmethod
+    def edit_item(info_dict):
+
+        get_object_or_404(Item, info_dict['id'])
+    @staticmethod
+    def delete_item(info_dict):
+        try:
+            item = get_object_or_404(Item, id=info_dict['id'])
+            item.delete()
+        except Exception as e:
+            return False
+        return True
 
 class Price(models.Model):
     volume = models.CharField(max_length=150, null=False, verbose_name='Объем')
@@ -42,3 +75,8 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def create_tag(info_dict):
+        Tag.objects.create(info_dict['tag_name'])
+        return True
