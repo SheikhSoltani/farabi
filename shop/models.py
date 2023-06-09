@@ -31,30 +31,55 @@ class Item(models.Model):
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
-    # @staticmethod
-    # def create_item(info_dict):
-    #     
-    #     Item.objects.create(
-    #         name=,
-    #         image=,
-    #         description=,
-    #         tag=get_object_or_404(Tag, id=),
-    #         purpose=,
-    #         color=,
-    #         degree_of_gloss=,
-    #         warranty=,
-    #         expiration_date=,
-    #         composition=,
-    #         method_of_use=,
-    #         expense=,
-    #         flammable=,
-    #         traits=
-    #     )
+    @staticmethod
+    def create_item(info_dict):
+        price_objects = []
+        for price_unit in info_dict['price_array']:
+            price_objects.append(Price.objects.create(
+                volume=price_unit['volume'],
+                bulk=price_unit['bulk'],
+                retail=price_unit['retail']
+            ))
+
+        item = Item.objects.create(
+            name=info_dict['name'],
+            image=info_dict['image'],
+            description=info_dict['description'],
+            tag=get_object_or_404(Tag, id=info_dict['tag']),
+            purpose=info_dict['purpose'],
+            color=info_dict['color'],
+            degree_of_gloss=info_dict['degree_of_gloss'],
+            warranty=info_dict['warranty'],
+            expiration_date=info_dict['expiration_date'],
+            composition=info_dict['composition'],
+            method_of_use=info_dict['method_of_use'],
+            expense=info_dict['expense'],
+            flammable=info_dict['flammable'],
+            traits=info_dict['traits']
+        )
+        for price in price_objects:
+            item.price.add(price)
 
     @staticmethod
     def edit_item(info_dict):
+    #TODO price edit
+        item = get_object_or_404(Item, id=int(info_dict['id']))
+        item.name = info_dict['name']
+        item.name = info_dict['image']
+        item.tag = get_object_or_404(Tag, name=info_dict['tag_name'])
+        item.name = info_dict['description']
+        item.name = info_dict['purpose']
+        item.name = info_dict['color']
+        item.name = info_dict['degree_of_gloss']
+        item.name = info_dict['warranty']
+        item.name = info_dict['expiration_date']
+        item.name = info_dict['composition']
+        item.name = info_dict['method_of_use']
+        item.name = info_dict['expense']
+        item.name = info_dict['flammable']
+        item.name = info_dict['traits']
 
-        get_object_or_404(Item, info_dict['id'])
+
     @staticmethod
     def delete_item(info_dict):
         try:
@@ -63,6 +88,7 @@ class Item(models.Model):
         except Exception as e:
             return False
         return True
+
 
 class Price(models.Model):
     volume = models.CharField(max_length=150, null=False, verbose_name='Объем')
@@ -79,4 +105,17 @@ class Tag(models.Model):
     @staticmethod
     def create_tag(info_dict):
         Tag.objects.create(info_dict['tag_name'])
+        return True
+
+    @staticmethod
+    def edit_tag(info_dict):
+        tag = get_object_or_404(Tag, name=info_dict['tag_name'])
+        tag.name = info_dict['tag_new_name']
+        tag.save()
+        return True
+
+    @staticmethod
+    def delete_tag(info_dict):
+        tag = get_object_or_404(Tag, name=info_dict['tag_name'])
+        tag.delete()
         return True
