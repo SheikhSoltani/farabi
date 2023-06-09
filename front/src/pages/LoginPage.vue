@@ -13,6 +13,7 @@
   <script>
   import axios from 'axios';
   import router from "@/js/router";
+import {url} from '@/js/config.js';
   
   
   
@@ -28,13 +29,13 @@
     methods: {
       signInButtonPressed (event) {
         event.preventDefault();
-        const data =axios.post('farabi-admin/login', {'username': this.username, 'password': this.password})
+        const data =axios.post(url+'farabi-admin/login', {'username': this.username, 'password': this.password})
         .then(result => result.data);
         console.log(data)
         const printAddress = async () => {
           const a = await data;
-          if(a.status){
-            await router.push({path: '/home'})
+          if(a.logged===true){
+            await router.push({path: '/admin'})
           }else{
             alert("неправильные данные")
           }
@@ -44,22 +45,24 @@
       },
         
     },
-    mounted() {
+    mounted() {/*
       async function logged_or_not() {
-      const result = await axios
-        .get("farabi-admin/login")
-        .then((res) => {
-          return res.data;
-        })
-        .catch(() => {
-          console.log("fail");
-        });
-      if (result.status === true) {
-        await router.push({path: '/home'})
+        const result = await axios
+          .get(url+"farabi-admin/login")
+          .then((res) => {
+            return res.data;
+          })
+          .catch(() => {
+            console.log("fail");
+          });
+        if (result === true) {
+          console.log(result)
+          await router.push({path: '/home'})
+        }
+        return result
       }
-      return result.status
-    }
-    logged_or_not()
+      logged_or_not()*/
+
     }
   }
   

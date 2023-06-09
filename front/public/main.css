@@ -52,3 +52,15 @@
     align-items: center;
     justify-content: center;
 }
+.admin_item_panel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #313131;
+    color: #fafafa;
+}
+.admin_item_panel>input{
+    width: 50%;
+    margin: 10px;
+}

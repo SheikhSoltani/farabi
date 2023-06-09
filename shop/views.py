@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from shop.models import Item
-from .serializers import ItemSerializer
+from shop.models import Item , Tag
+from .serializers import ItemSerializer,TagSerializer
 
 logger = logging.getLogger('django')
 
@@ -31,5 +31,11 @@ def single_item(request):
 def items(request):
     return Response({
         'items': ItemSerializer(Item.objects.all(), many=True).data
+    })
+
+@api_view(['GET'])
+def tags(request):
+    return Response({
+        'tags': TagSerializer(Tag.objects.all(), many=True).data
     })
 

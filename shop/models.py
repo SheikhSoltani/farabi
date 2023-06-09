@@ -33,6 +33,7 @@ class Item(models.Model):
 
     @staticmethod
     def create_item(info_dict):
+        print(info_dict)
         price_objects = []
         for price_unit in info_dict['price_array']:
             price_objects.append(Price.objects.create(
@@ -104,7 +105,8 @@ class Tag(models.Model):
 
     @staticmethod
     def create_tag(info_dict):
-        Tag.objects.create(info_dict['tag_name'])
+        print(info_dict)
+        Tag.objects.create( name=info_dict['tag_name'])
         return True
 
     @staticmethod

@@ -2,6 +2,7 @@ import LoginPage from "@/pages/LoginPage";
 import {createRouter,createWebHistory} from "vue-router";
 import MainPage from "@/pages/MainPage";
 import NotFound from "@/pages/NotFound";
+import AdminPage from "@/pages/AdminPage";
 import ItemPage from "@/pages/ItemPage";
 import ItemsPage from "@/pages/ItemsPage";
 import BasketPage from "@/pages/BasketPage";
@@ -25,6 +26,10 @@ const routes =[
     {
         path:'/login',
         component: LoginPage,
+    },
+    {
+        path:'/admin',
+        component: AdminPage,
     },
     {
         path:'/item',
