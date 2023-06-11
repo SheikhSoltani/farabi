@@ -7,7 +7,7 @@ from django.db import models
 class Item(models.Model):
     """ Item model """
     name = models.CharField(max_length=450)
-    image = models.ImageField(upload_to='ItemImages/')
+    image = models.ImageField(upload_to='ItemImages/', null=True, blank=True)
     slug = models.SlugField(null=True, blank=True, unique=True)
     price = models.ManyToManyField('Price', related_name='prices', null=True, blank=True)
     tag = models.ForeignKey('Tag', on_delete=models.CASCADE)
@@ -41,12 +41,12 @@ class Item(models.Model):
                 bulk=price_unit['bulk'],
                 retail=price_unit['retail']
             ))
-
+        print('qweqwe')
         item = Item.objects.create(
             name=info_dict['name'],
             image=info_dict['image'],
             description=info_dict['description'],
-            tag=get_object_or_404(Tag, id=info_dict['tag']),
+            tag_id=int(info_dict['tag']),
             purpose=info_dict['purpose'],
             color=info_dict['color'],
             degree_of_gloss=info_dict['degree_of_gloss'],
@@ -58,6 +58,7 @@ class Item(models.Model):
             flammable=info_dict['flammable'],
             traits=info_dict['traits']
         )
+        print(item)
         for price in price_objects:
             item.price.add(price)
 

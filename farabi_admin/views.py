@@ -67,6 +67,7 @@ def add_item(request):
     try:
         Item.create_item(request.data)
     except Exception as e:
+        print(e)
         return Response({
             'result': False
         })

@@ -117,7 +117,9 @@
             const data =axios.post(url+'farabi-admin/create-item', 
             {
                 'name':this.item_name,
+                'image': '',
                 'description':this.description,
+                'tag': this.category_id,
                 'purpose':this.purpose,
                 'color':this.color,
                 'degree_of_gloss':this.degree_of_gloss,
