@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from shop.models import Tag, Item
-from .services import authenticate_user
+from .services import authenticate_user, logged_or_not
 
 import logging
 logger = logging.getLogger('django')
@@ -49,12 +49,15 @@ def add_tag(request):
         'result': True
     })
 
+
 @api_view(['POST'])
 def delete_tag(request):
     Tag.delete_tag(request.data)
     return Response({
         'result': True
     })
+
+
 @api_view(['PATCH'])
 def edit_tag(request):
     Tag.edit_tag(request.data)
@@ -62,15 +65,17 @@ def edit_tag(request):
         'result': True
     })
 
+
 @api_view(['POST'])
 def add_item(request):
-    try:
-        Item.create_item(request.data)
-    except Exception as e:
-        print(e)
-        return Response({
-            'result': False
-        })
+    Item.create_item(request.data)
+    # try:
+    #     Item.create_item(request.data)
+    # except Exception as e:
+    #     print(e)
+    #     return Response({
+    #         'result': False
+    #     })
     return Response({
         'result': True
     })
@@ -83,9 +88,15 @@ def edit_item(request):
         'result': True
     })
 
+
 @api_view(['POST'])
 def delete_item(request):
     Item.delete_item(request.data)
     return Response({
         'result': True
     })
+
+
+@api_view(['GET'])
+def logged(request):
+    return Response({'result': logged_or_not(request)})

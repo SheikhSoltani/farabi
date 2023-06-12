@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import get_object_or_404
 from pytils.translit import slugify
 
@@ -32,36 +34,31 @@ class Item(models.Model):
         return super().save(*args, **kwargs)
 
     @staticmethod
-    def create_item(info_dict):
-        print(info_dict)
+    def create_item(info_dict: dict):
         price_objects = []
-        print(info_dict['price_array'])
-        print("fgh")
-        for price_unit in info_dict['price_array']:
+        for price_unit in json.loads(info_dict['price_array']):
             print(price_unit)
-            print(price_unit['volume'])
-            print(price_unit['volume'][0])
             price_objects.append(Price.objects.create(
                 volume=price_unit['volume'],
                 bulk=price_unit['bulk'],
                 retail=price_unit['retail']
             ))
-        print('qweqwe')
+        print(info_dict)
         item = Item.objects.create(
-            name=info_dict['name'][0],
-            image=info_dict['image'][0],
-            description=info_dict['description'][0],
-            tag_id=int(info_dict['tag'][0]),
-            purpose=info_dict['purpose'][0],
-            color=info_dict['color'][0],
-            degree_of_gloss=info_dict['degree_of_gloss'][0],
-            warranty=info_dict['warranty'][0],
-            expiration_date=info_dict['expiration_date'][0],
-            composition=info_dict['composition'][0],
-            method_of_use=info_dict['method_of_use'][0],
-            expense=info_dict['expense'][0],
-            flammable=info_dict['flammable'][0],
-            traits=info_dict['traits'][0]
+            name=info_dict['name'],
+            image=info_dict['image'],
+            description=info_dict['description'],
+            tag_id=int(info_dict['tag']),
+            purpose=info_dict['purpose'],
+            color=info_dict['color'],
+            degree_of_gloss=info_dict['degree_of_gloss'],
+            warranty=info_dict['warranty'],
+            expiration_date=info_dict['expiration_date'],
+            composition=info_dict['composition'],
+            method_of_use=info_dict['method_of_use'],
+            expense=info_dict['expense'],
+            flammable=info_dict['flammable'],
+            traits=info_dict['traits']
         )
         print(item)
         for price in price_objects:
@@ -69,24 +66,23 @@ class Item(models.Model):
 
     @staticmethod
     def edit_item(info_dict):
-    #TODO price edit
         print(info_dict)
-        item = get_object_or_404(Item, id=info_dict['id'][0])
-        item.name = info_dict['name'][0]
-        item.image = info_dict['image'][0]
-        item.tag = get_object_or_404(Tag, id=info_dict['tag'][0])
-        print("yrtguh")
-        item.description = info_dict['description'][0]
-        item.purpose = info_dict['purpose'][0]
-        item.color = info_dict['color'][0]
-        item.degree_of_gloss = info_dict['degree_of_gloss'][0]
-        item.warranty = info_dict['warranty'][0]
-        item.expiration_date = info_dict['expiration_date'][0]
-        item.composition = info_dict['composition'][0]
-        item.method_of_use = info_dict['method_of_use'][0]
-        item.expense = info_dict['expense'][0]
-        item.flammable = info_dict['flammable'][0]
-        item.traits = info_dict['traits'][0]
+        item = get_object_or_404(Item, id=info_dict['id'])
+        item.tag = get_object_or_404(Tag, id=info_dict['tag'])
+
+        item.name = info_dict['name']
+        item.image = info_dict['image']
+        item.description = info_dict['description']
+        item.purpose = info_dict['purpose']
+        item.color = info_dict['color']
+        item.degree_of_gloss = info_dict['degree_of_gloss']
+        item.warranty = info_dict['warranty']
+        item.expiration_date = info_dict['expiration_date']
+        item.composition = info_dict['composition']
+        item.method_of_use = info_dict['method_of_use']
+        item.expense = info_dict['expense']
+        item.flammable = info_dict['flammable']
+        item.traits = info_dict['traits']
         item.save()
 
 

@@ -171,7 +171,7 @@
             data.append('expense', this.expense);
             data.append('flammable', this.flammable);
             data.append('traits', this.traits);
-            data.append('price_array', this.price_array);
+            data.append('price_array', JSON.stringify(this.price_array));
             console.log(data)
             axios.post(url+'farabi-admin/create-item',data , getConfig('multipart/form-data')
             )
@@ -286,23 +286,23 @@
         },
 
     },
-    mounted() {/*
+    mounted() {
         async function logged_or_not() {
             const result = await axios
-            .get(url+"farabi-admin/login")
+            .get(url+"farabi-admin/logged")
             .then((res) => {
             return res.data;
             })
             .catch(() => {
             console.log("fail");
             });
-            if (result === true) {
+            if (result === false) {
                 console.log(result)
                 await router.push({path: '/home'})
             }
             return result
         }
-        logged_or_not()*/
+        logged_or_not()
         setTimeout(async ()=>{
             let arr =await this.get_items()
             let arr2 =await this.get_tags()
