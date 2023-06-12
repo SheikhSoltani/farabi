@@ -1,22 +1,29 @@
 <template>
     <section class="admin_page">
         <button @click="logOut">Выход</button>
-        <button @click="showElement(this.hidden_2,'hidden_2')">Добавить товар</button>
-        <button @click="showElement(this.hidden_1,'hidden_1')">Добавить категорию</button>
+        <button @click="showElement(this.hidden_2,'hidden_2',false)">Добавить товар</button>
+        <button @click="showElement(this.hidden_1,'hidden_1',false),fill('category_name','')">Добавить категорию</button>
         <div v-show="hidden_1">
             <label for="">Название категории</label>
             <input type="text" v-model="category_name">
-            <button @click="addCategory">Добавить</button>
+            <button v-show="!eddit" @click="addCategory">Добавить</button>
+            <button v-show="eddit" @click="editTag(this.previous_category_name,this.category_name)">Заменить</button>
         </div>
         <div class="admin_item_panel" v-show="hidden_2">
             <label for="">Название товара</label>
             <input type="text" v-model="item_name">
-            <label for="">ID категории</label>
-            <input type="text" v-model="category_id">
+            <select v-model="category_id">
+                <option disabled value="">Выберите категорию</option>
+                <option v-for="item in array_tags.tags" v-bind:key="item" :value="item.id">{{ item.name }}</option>
+            </select>
             <label for="">Описание товара</label>
             <input type="text" v-model="description">
             <label for="">Назначение товара</label>
             <input type="text" v-model="purpose">
+            <label for="avatar" class="input-file">
+                <input  onmouseout="this.blur();"  type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" v-bind:value="image"  @input="image=$event.target.value" >
+                <span>Выберите файл</span>
+            </label>
             <label for="">Цвет товара</label>
             <input type="text" v-model="color">
             <label for="">Степень глянца товара</label>
@@ -46,20 +53,21 @@
             <button @click="AddPrice">AddPrice</button>
             <button @click="PopPrice">DellPrice</button>
             <br/>
-            <button @click="addItem">Добавить</button>
+            <button v-show="!eddit" @click="addItem">Добавить</button>
+            <button v-show="eddit" @click="editItem">Заменить</button>
         </div>
         <div v-for="item in array.items" v-bind:key="item">
             <div style="margin: 5px;">
                 <p style="width: 100px;display: inline-block;overflow: hidden;">{{item.name}}</p>
-                <button>удалить</button>
-                <button>редактировать</button>
+                <button :id="item.id" @click="deleteItem(item.id)">удалить</button>
+                <button @click="showElement(this.hidden_2,'hidden_2',true),fill('item_id',item.id)">редактировать</button>
             </div>
         </div>
         <div v-for="item in array_tags.tags" v-bind:key="item">
             <div style="background: #313131;color: white;margin: 5px;">
                 <p style="width: 100px;display: inline-block;overflow: hidden;">{{item.name}}</p>
                 <button :id="item.name" @click="deleteTag(item.name)">удалить</button>
-                <button>редактировать</button>
+                <button @click="showElement(this.hidden_1,'hidden_1',true),fill('category_name',item.name)">редактировать</button>
             </div>
         </div>
     </section>
@@ -78,10 +86,14 @@
       return {
         username:'',
         password:'',
+        image:null,
         hidden_1:false,
         hidden_2:false,
+        eddit:false,
         category_name:'',
+        previous_category_name:'',
         category_id:'',
+        item_id:'',
         item_name:'',
         description:'',
         purpose:'',
@@ -112,27 +124,57 @@
         PopPrice(){
             this.price_array.pop()
         },
+        fill(name,value){
+            if(name==='category_name'){
+                this.category_name = value;
+                this.previous_category_name = value;
+            }
+            if(name==='item_id'){
+                this.item_id = value;
+                for(let i in this.array.items){
+                    if(this.array.items[i].id===value){
+                        this.item_name=this.array.items[i].name,
+                        this.image=this.array.items[i].image,
+                        this.description=this.array.items[i].description,
+                        this.category_id=this.array.items[i].tag_serialized.id,
+                        this.purpose=this.array.items[i].purpose,
+                        this.color=this.array.items[i].color,
+                        this.degree_of_gloss=this.array.items[i].degree_of_gloss,
+                        this.warranty=this.array.items[i].warranty,
+                        this.expiration_date=this.array.items[i].expiration_date,
+                        this.composition=this.array.items[i].composition,
+                        this.method_of_use=this.array.items[i].method_of_use,
+                        this.expense=this.array.items[i].expense,
+                        this.flammable=this.array.items[i].flammable,
+                        this.traits=this.array.items[i].traits,
+                        this.price_array=this.array.items[i].price_serialized
+                    }
+                }
+            }
+        },
         addItem (event) {
             event.preventDefault();
-            const data =axios.post(url+'farabi-admin/create-item', 
-            {
-                'name':this.item_name,
-                'image': '',
-                'description':this.description,
-                'tag': this.category_id,
-                'purpose':this.purpose,
-                'color':this.color,
-                'degree_of_gloss':this.degree_of_gloss,
-                'warranty':this.warranty,
-                'expiration_date':this.expiration_date,
-                'composition':this.composition,
-                'method_of_use':this.method_of_use,
-                'expense':this.expense,
-                'flammable':this.flammable,
-                'traits':this.traits,'price_array':this.price_array
-            })
-            .then(result => result.data);
-            console.log(data);
+
+            let data = new FormData();
+            let input = document.querySelector('#avatar');
+            data.append('image', input.files[0]);
+            data.append('name', this.item_name);
+            data.append('description', this.description);
+            data.append('tag',this.category_id);
+            data.append('purpose', this.purpose);
+            data.append('color', this.color);
+            data.append('degree_of_gloss', this.degree_of_gloss);
+            data.append('warranty', this.warranty);
+            data.append('expiration_date', this.expiration_date);
+            data.append('composition', this.composition);
+            data.append('method_of_use',this.method_of_use);
+            data.append('expense', this.expense);
+            data.append('flammable', this.flammable);
+            data.append('traits', this.traits);
+            data.append('price_array', this.price_array);
+            console.log(data)
+            axios.post(url+'farabi-admin/create-item',data , getConfig('multipart/form-data')
+            )
         },
         addCategory (event) {
             event.preventDefault();
@@ -143,7 +185,12 @@
                 this.array_tags = arr2;
             }, 100);
         },
-        showElement (hideElem,name) {
+        showElement (hideElem,name,eddit) {
+            if(eddit===true){
+                this.eddit=true;
+            }else{
+                this.eddit=false;
+            }
             if(hideElem===true){
                 if(name==='hidden_1'){
                     this.hidden_1=false;
@@ -159,17 +206,64 @@
                     this.hidden_2=true;
                 }
             }
-        },deleteTag(tag_name){
-              
-              axios.post(
-                    url+'farabi-admin/delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
-                ).then(data =>{
-                if(data.data.result){
-                  let child = document.getElementById(tag_name);
-                  child.parentElement.remove();
+        },
+        deleteTag(tag_name){
+            axios.post(
+                url+'farabi-admin/delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
+            ).then(data =>{
+            if(data.data.result){
+                let child = document.getElementById(tag_name);
+                child.parentElement.remove();
+            }
+            })
+        },
+        deleteItem(item_id){
+            
+            axios.post(
+                url+'farabi-admin/delete-item', { 'id': item_id }, getConfig('application/json')
+            ).then(data =>{
+            if(data.data.result){
+                let child = document.getElementById(item_id);
+                child.parentElement.remove();
+            }
+            })
+        },
+        editTag(tag_name,tag_new_name){
+            axios.patch(
+                url+'farabi-admin/edit-tag', { 'tag_name': tag_name,'tag_new_name':tag_new_name }, getConfig('application/json')
+            ).then(() =>{
+                for(let i in this.array_tags.tags){
+                    if(this.array_tags.tags[i].name===tag_name){
+                        this.array_tags.tags[i].name=tag_new_name;
+                    }
                 }
-              })
-            },
+            })
+        },
+        editItem(){
+            axios.patch(
+                url+'farabi-admin/edit-item', 
+                {
+                'id':this.item_id,
+                'name':this.item_name,
+                'image': this.image,
+                'description':this.description,
+                'tag': this.category_id,
+                'purpose':this.purpose,
+                'color':this.color,
+                'degree_of_gloss':this.degree_of_gloss,
+                'warranty':this.warranty,
+                'expiration_date':this.expiration_date,
+                'composition':this.composition,
+                'method_of_use':this.method_of_use,
+                'expense':this.expense,
+                'flammable':this.flammable,
+                'traits':this.traits,'price_array':this.price_array
+                }
+                , getConfig('application/json')
+            ).then(() =>{
+                
+            })
+        },
         async  get_items() { 
             const result = await axios
             .get(url+"api/items")
