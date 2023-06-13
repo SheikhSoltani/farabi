@@ -4,7 +4,7 @@
     </div>
     <div v-for="item in array.items" v-bind:key="item">
         <div>
-            <img :src="this.url+item.image.replace('/','')" width="150" alt="img">
+            <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="150" alt="img">
             <p>{{item.name}}</p>
             <br/>
         </div>

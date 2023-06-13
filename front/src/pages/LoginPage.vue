@@ -45,23 +45,23 @@ import {url} from '@/js/config.js';
       },
         
     },
-    mounted() {/*
-      async function logged_or_not() {
-        const result = await axios
-          .get(url+"farabi-admin/login")
-          .then((res) => {
+    mounted() {
+      
+        async function logged_or_not() {
+            const result = await axios
+            .get(url+"farabi-admin/logged")
+            .then((res) => {
             return res.data;
-          })
-          .catch(() => {
+            })
+            .catch(() => {
             console.log("fail");
-          });
-        if (result === true) {
-          console.log(result)
-          await router.push({path: '/home'})
+            });
+            if (result.result === true) {
+                await router.push({path: '/admin'})
+            }
+            return result
         }
-        return result
-      }
-      logged_or_not()*/
+        logged_or_not()
 
     }
   }

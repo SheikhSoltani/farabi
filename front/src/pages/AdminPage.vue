@@ -21,7 +21,7 @@
             <label for="">Назначение товара</label>
             <input type="text" v-model="purpose">
             <label for="avatar" class="input-file">
-                <input  onmouseout="this.blur();"  type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" v-bind:value="image"  @input="image=$event.target.value" >
+                <input  onmouseout="this.blur();"  type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" >
                 <span>Выберите файл</span>
             </label>
             <label for="">Цвет товара</label>
@@ -104,7 +104,7 @@
         composition:'',
         method_of_use:'',
         expense:'',
-        flammable: null,
+        flammable: false,
         traits:'',
         array:[],
         array_tags:[],
@@ -157,7 +157,11 @@
 
             let data = new FormData();
             let input = document.querySelector('#avatar');
-            data.append('image', input.files[0]);
+            if(input.files[0]===undefined){
+                data.append('image', '');
+            }else{
+                data.append('image', input.files[0]);
+            }
             data.append('name', this.item_name);
             data.append('description', this.description);
             data.append('tag',this.category_id);
@@ -169,7 +173,7 @@
             data.append('composition', this.composition);
             data.append('method_of_use',this.method_of_use);
             data.append('expense', this.expense);
-            data.append('flammable', this.flammable);
+            data.append('flammable', JSON.parse(this.flammable));
             data.append('traits', this.traits);
             data.append('price_array', JSON.stringify(this.price_array));
             console.log(data)
@@ -240,29 +244,34 @@
             })
         },
         editItem(){
-            axios.patch(
-                url+'farabi-admin/edit-item', 
-                {
-                'id':this.item_id,
-                'name':this.item_name,
-                'image': this.image,
-                'description':this.description,
-                'tag': this.category_id,
-                'purpose':this.purpose,
-                'color':this.color,
-                'degree_of_gloss':this.degree_of_gloss,
-                'warranty':this.warranty,
-                'expiration_date':this.expiration_date,
-                'composition':this.composition,
-                'method_of_use':this.method_of_use,
-                'expense':this.expense,
-                'flammable':this.flammable,
-                'traits':this.traits,'price_array':this.price_array
-                }
-                , getConfig('application/json')
-            ).then(() =>{
-                
-            })
+
+            
+            let data = new FormData();
+            let input = document.querySelector('#avatar');
+            if(input.files[0]===undefined){
+                data.append('image', this.image.replace("/media",""));
+            }else{
+                data.append('image', input.files[0]);
+            }
+            data.append('name', this.item_name);
+            data.append('id', this.item_id);
+            data.append('description', this.description);
+            data.append('tag',this.category_id);
+            data.append('purpose', this.purpose);
+            data.append('color', this.color);
+            data.append('degree_of_gloss', this.degree_of_gloss);
+            data.append('warranty', this.warranty);
+            data.append('expiration_date', this.expiration_date);
+            data.append('composition', this.composition);
+            data.append('method_of_use',this.method_of_use);
+            data.append('expense', this.expense);
+            data.append('flammable', JSON.parse(this.flammable));
+            data.append('traits', this.traits);
+            data.append('price_array', JSON.stringify(this.price_array));
+            console.log(data)
+            axios.patch(url+'farabi-admin/edit-item',data , getConfig('multipart/form-data'))
+
+           
         },
         async  get_items() { 
             const result = await axios
@@ -296,9 +305,8 @@
             .catch(() => {
             console.log("fail");
             });
-            if (result === false) {
-                console.log(result)
-                await router.push({path: '/home'})
+            if (result.result === false) {
+                await router.push({path: '/login'})
             }
             return result
         }
