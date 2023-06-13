@@ -37,13 +37,11 @@ class Item(models.Model):
     def create_item(info_dict: dict):
         price_objects = []
         for price_unit in json.loads(info_dict['price_array']):
-            print(price_unit)
             price_objects.append(Price.objects.create(
                 volume=price_unit['volume'],
                 bulk=price_unit['bulk'],
                 retail=price_unit['retail']
             ))
-        print(info_dict)
         item = Item.objects.create(
             name=info_dict['name'],
             image=info_dict['image'],
@@ -60,15 +58,15 @@ class Item(models.Model):
             flammable=bool(info_dict['flammable']),
             traits=info_dict['traits']
         )
-        print(item)
         for price in price_objects:
             item.price.add(price)
 
     @staticmethod
     def edit_item(info_dict):
-        print(info_dict)
         item = get_object_or_404(Item, id=info_dict['id'])
         item.tag = get_object_or_404(Tag, id=info_dict['tag'])
+        for price_unit in json.loads(info_dict['price_array']):
+            Price.objects.get(id=price_unit['id']).change_data(price_unit)
 
         item.name = info_dict['name']
         item.image = info_dict['image']
@@ -85,7 +83,6 @@ class Item(models.Model):
         item.traits = info_dict['traits']
         item.save()
 
-
     @staticmethod
     def delete_item(info_dict):
         try:
@@ -101,6 +98,12 @@ class Price(models.Model):
     bulk = models.PositiveIntegerField(null=False, verbose_name='Оптом')
     retail = models.PositiveIntegerField(null=False, verbose_name='В розницу')
 
+    def change_data(self, price_unit):
+        self.volume = price_unit['volume']
+        self.bulk = price_unit['bulk']
+        self.retail = price_unit['retail']
+        self.save()
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=255, null=False, verbose_name='Название подраздела')
@@ -110,8 +113,7 @@ class Tag(models.Model):
 
     @staticmethod
     def create_tag(info_dict):
-        print(info_dict)
-        Tag.objects.create( name=info_dict['tag_name'])
+        Tag.objects.create(name=info_dict['tag_name'])
         return True
 
     @staticmethod

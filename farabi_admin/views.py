@@ -68,14 +68,12 @@ def edit_tag(request):
 
 @api_view(['POST'])
 def add_item(request):
-    Item.create_item(request.data)
-    # try:
-    #     Item.create_item(request.data)
-    # except Exception as e:
-    #     print(e)
-    #     return Response({
-    #         'result': False
-    #     })
+    try:
+        Item.create_item(request.data)
+    except Exception as e:
+        return Response({
+            'result': False
+        })
     return Response({
         'result': True
     })
