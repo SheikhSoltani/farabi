@@ -57,7 +57,7 @@ class Item(models.Model):
             composition=info_dict['composition'],
             method_of_use=info_dict['method_of_use'],
             expense=info_dict['expense'],
-            flammable=info_dict['flammable'],
+            flammable=bool(info_dict['flammable']),
             traits=info_dict['traits']
         )
         print(item)
@@ -81,7 +81,7 @@ class Item(models.Model):
         item.composition = info_dict['composition']
         item.method_of_use = info_dict['method_of_use']
         item.expense = info_dict['expense']
-        item.flammable = info_dict['flammable']
+        item.flammable = bool(info_dict['flammable'])
         item.traits = info_dict['traits']
         item.save()
 
