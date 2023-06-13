@@ -48,6 +48,7 @@ import {url} from '@/js/config.js';
     mounted() {
       
         async function logged_or_not() {
+            console.log('logged_or_not');
             const result = await axios
             .get(url+"farabi-admin/logged")
             .then((res) => {
@@ -56,10 +57,12 @@ import {url} from '@/js/config.js';
             .catch(() => {
             console.log("fail");
             });
+            console.log(result);
+            console.log(result.result);
             if (result.result === true) {
                 await router.push({path: '/admin'})
             }
-            return result
+            return result.result
         }
         logged_or_not()
 

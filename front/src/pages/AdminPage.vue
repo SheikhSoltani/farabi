@@ -296,21 +296,23 @@
 
     },
     mounted() {
-        async function logged_or_not() {
-            const result = await axios
-            .get(url+"farabi-admin/logged")
-            .then((res) => {
-            return res.data;
-            })
-            .catch(() => {
-            console.log("fail");
-            });
-            if (result.result === false) {
-                await router.push({path: '/login'})
-            }
-            return result
-        }
-        logged_or_not()
+        // async function logged_or_not() {
+        //     console.log('logged_or_not');
+        //     const result = await axios
+        //     .get(url+"farabi-admin/logged")
+        //     .then((res) => {
+        //     return res.data;
+        //     })
+        //     .catch(() => {
+        //     console.log("fail");
+        //     });
+        //     if (result.result === false) {
+        //         console.log(result.result);
+        //         await router.push({path: '/login'})
+        //     }
+        //     return result.result
+        // }
+        // logged_or_not()
         setTimeout(async ()=>{
             let arr =await this.get_items()
             let arr2 =await this.get_tags()
