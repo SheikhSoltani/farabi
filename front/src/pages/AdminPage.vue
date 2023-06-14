@@ -76,6 +76,7 @@
   import axios from 'axios';
   import router from "@/js/router";
   import {url} from '@/js/config.js';
+
   import {getConfig} from '@/js/cookie.js';
   
   
@@ -298,17 +299,18 @@
     mounted() {
         async function logged_or_not() {
             const result = await axios
-            .get(url+"farabi-admin/logged")
+            .get("farabi-admin/logged")
             .then((res) => {
             return res.data;
             })
             .catch(() => {
             console.log("fail");
             });
+            console.log(result.result)
             if (result.result === false) {
                 await router.push({path: '/login'})
             }
-            return result
+            return result.result
         }
         logged_or_not()
         setTimeout(async ()=>{

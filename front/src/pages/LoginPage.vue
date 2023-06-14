@@ -13,8 +13,8 @@
   <script>
   import axios from 'axios';
   import router from "@/js/router";
-import {url} from '@/js/config.js';
-  
+
+
   
   
   export default {
@@ -29,9 +29,8 @@ import {url} from '@/js/config.js';
     methods: {
       signInButtonPressed (event) {
         event.preventDefault();
-        const data =axios.post(url+'farabi-admin/login', {'username': this.username, 'password': this.password})
+        const data =axios.post('farabi-admin/login', {'username': this.username, 'password': this.password}, {withCredentials: true})
         .then(result => result.data);
-        console.log(data)
         const printAddress = async () => {
           const a = await data;
           if(a.logged===true){
@@ -43,13 +42,13 @@ import {url} from '@/js/config.js';
         printAddress();
       
       },
-        
+
     },
     mounted() {
       
         async function logged_or_not() {
             const result = await axios
-            .get(url+"farabi-admin/logged")
+            .get("farabi-admin/logged")
             .then((res) => {
             return res.data;
             })
@@ -59,7 +58,7 @@ import {url} from '@/js/config.js';
             if (result.result === true) {
                 await router.push({path: '/admin'})
             }
-            return result
+            return result.result
         }
         logged_or_not()
 

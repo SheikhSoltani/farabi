@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
@@ -15,14 +16,14 @@ logger = logging.getLogger('django')
 @csrf_exempt
 def log_in(request):
     """ Process of login in  """
-    logger.debug(request.data)
+    logger.info(request.data)
     if request.user.is_authenticated:
         return Response({
             'already logged': True
         })
 
     result = authenticate_user(request, request.data)
-
+    print(request.user.is_authenticated, 'already')
     if result:
         return Response({
             'logged': result
@@ -96,5 +97,9 @@ def delete_item(request):
 
 
 @api_view(['GET'])
-def logged(request):
-    return Response({'result': logged_or_not(request)})
+def logged(request: WSGIRequest):
+    result = logged_or_not(request)
+    if result:
+        return Response({'result': True})
+    else:
+        return Response({'result': False})
