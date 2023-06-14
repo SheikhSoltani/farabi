@@ -1,9 +1,61 @@
 <template>
     <div>
         <h1>BasketPage</h1>
+
+        <button @click="showElement">купить</button>
+        <div v-show="hidden">
+            <div class="input_block">
+                <span>name</span>
+                <input v-model="name" type="text">
+            </div>
+            <div class="input_block">
+                <span>email</span>
+                <input v-model="email" type="text">
+            </div>
+            <div class="input_block">
+                <span>phone</span>
+                <input v-model="phone" type="text" v-mask="'+7(###)###-##-##'">
+            </div>
+            <button @click="send">отправить</button>
+        </div>
+    </div>
+    <div v-for="item in array.items" v-bind:key="item">
+        <div>
+            <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="150" alt="img">
+            <p>{{item.name}}</p>
+            <br/>
+        </div>
     </div>
 </template>
-  
+  <style>.input_block{
+    position: relative;
+}
+.input_block>input{
+    border: none;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    background: transparent;
+    color: #2e2e2e;
+    padding: 26px 12px 5px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 51px;
+    resize: none;box-sizing: border-box;
+    background: #fafafa;
+    overflow:visible;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+.input_block>span{
+    
+    font-size: 12px;
+    line-height: 16px;
+    transform: translateY(0px);
+    position: absolute;
+    left: 12px;
+    top: 10px;
+}</style>
 <script>
 
 
@@ -15,34 +67,25 @@ import axios from 'axios';
 
 export default {
     name: 'BasketPage',
+    data() {
+      return {
+        hidden:false,
+        email:'',
+        name:'',
+        phone:'',
+        array:[],
+      }
+    },
     methods:{
-        /*
-        deleteItem(id){
-            axios.post(
-                url+'api/delete_block', { 'block_id':id }, getConfig('application/json')
-            ).then(data =>{
-                if(data.data.status){
-                    let child = document.getElementById(id);
-                    child.parentElement.remove();
-                }
-                for(let i=0;i<this.sortSite.length;i++){
-                    this.sortSite.splice(i, 1);
-                }
-                        
-                let arr = this.get_items()
-                arr.then((data2)=>{
-                this.site.splice(0);
-                    if(data2){
-                        this.site.push({title:data2.site.title,get_blocks:data2.site.get_blocks})
-                    }
-                this.sortSite=test(this.site);
-                this.order=this.sortSite.length;
-                })
-            })
-        },*/
-        async  get_items() { 
+        send(){
+            axios.post(url+'api/create-order',{'email':this.email,'phone':this.phone,'name':this.name} )
+        },
+        showElement(){
+            this.hidden=!this.hidden;
+        },
+        async  get_basket_items() { 
             const result = await axios
-            .get(url+"api/cart")
+            .get(url+"api/get_card_items")
             .then((res) => {
                 return res.data;
             })
@@ -52,14 +95,11 @@ export default {
         },
     },
     async mounted() {
+        this.url=url;
         setTimeout(async ()=>{
-            let arr =await this.get_items()
-            console.log(arr);
-            if(arr){
-            this.site.push({title:arr.site.title,get_blocks:arr.site.get_blocks})
-            }
-            this.sortSite=this.site;
-            this.order=this.sortSite.length;
+            let arr =await this.get_basket_items()
+            this.array = arr;
+            console.log(this.array);
         }, 100);
     },
 }
