@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>ItemPage</h1>
+        <button @click="addToBasket">добавить в корзину</button>
     </div>
 </template>
   
@@ -16,6 +17,7 @@ export default {
         return{
           item:[
           ],
+          item_id:''
         }
     },
     methods:{
@@ -29,6 +31,11 @@ export default {
             });
             return result
         },
+        addToBasket(event){
+            event.preventDefault();
+            axios.post(url+'api/add_to_card', {'id': this.item_id})
+            .then(result => result.data);
+        }
     },
     async mounted() {
         setTimeout(async ()=>{

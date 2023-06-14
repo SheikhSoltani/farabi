@@ -19,6 +19,13 @@
             <button @click="send">отправить</button>
         </div>
     </div>
+    <div v-for="item in array.items" v-bind:key="item">
+        <div>
+            <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="150" alt="img">
+            <p>{{item.name}}</p>
+            <br/>
+        </div>
+    </div>
 </template>
   <style>.input_block{
     position: relative;
@@ -65,7 +72,8 @@ export default {
         hidden:false,
         email:'',
         name:'',
-        phone:''
+        phone:'',
+        array:[],
       }
     },
     methods:{
@@ -75,7 +83,24 @@ export default {
         showElement(){
             this.hidden=!this.hidden;
         },
-        
+        async  get_basket_items() { 
+            const result = await axios
+            .get(url+"api/get_card_items")
+            .then((res) => {
+                return res.data;
+            })
+            .catch(() => {
+            });
+            return result
+        },
+    },
+    async mounted() {
+        this.url=url;
+        setTimeout(async ()=>{
+            let arr =await this.get_basket_items()
+            this.array = arr;
+            console.log(this.array);
+        }, 100);
     },
 }
 </script>
