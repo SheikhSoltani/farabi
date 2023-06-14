@@ -6,5 +6,3 @@ const app=createApp(App)
 app.use(router)
 app.mount('#app')
 
-import VueTheMask from 'vue-the-mask'
-app.use(VueTheMask)
