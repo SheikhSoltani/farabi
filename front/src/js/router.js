@@ -36,9 +36,6 @@ const routes =[
         path:'/item/:slug',
         component: ItemPage,
         props: (route) => ({  slug: route.params.slug }),
-        query: {
-            id: 0,
-        }
     },
     {
         path:'/items',

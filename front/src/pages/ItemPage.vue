@@ -32,7 +32,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            axios.post('/api/add_to_card', {'id': this.id})
+            axios.post('/api/add_to_card', {'id': this.item.item.id})
             .then(result => result.data);
         }
     },
