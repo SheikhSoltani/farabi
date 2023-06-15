@@ -33,9 +33,12 @@ const routes =[
     },
     {
         name:'Item',
-        path:'/item/:id',
+        path:'/item/:slug',
         component: ItemPage,
-        props: (route) => ({  id: parseInt(route.params.id) })
+        props: (route) => ({  slug: route.params.slug }),
+        query: {
+            id: 0,
+        }
     },
     {
         path:'/items',

@@ -22,7 +22,7 @@ export default {
     methods:{
         async  get_items() { 
             const result = await axios
-            .get("api/item?slug="+this.slug)
+            .get("/api/item?slug="+this.slug)
             .then((res) => {
                 return res.data;
             })
@@ -32,7 +32,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            axios.post('api/add_to_card', {'id': this.id})
+            axios.post('/api/add_to_card', {'id': this.id})
             .then(result => result.data);
         }
     },
