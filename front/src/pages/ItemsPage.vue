@@ -25,7 +25,7 @@ export default {
     methods:{
         async  get_items() { 
             const result = await axios
-            .get(url+"api/items")
+            .get("api/items")
             .then((res) => {
                 return res.data;
             })

@@ -18,6 +18,7 @@
             </div>
             <button @click="send">отправить</button>
         </div>
+        <button @click="">очистить корзину</button>
     </div>
     <div v-for="item in array.items" v-bind:key="item">
         <div>
@@ -78,14 +79,34 @@ export default {
     },
     methods:{
         send(){
-            axios.post(url+'api/create-order',{'email':this.email,'phone':this.phone,'name':this.name} )
+            axios.post('api/create-order',{'email':this.email,'phone':this.phone,'name':this.name} )
+        },
+        deliteItem(id){
+            axios.post(
+                  'api/delete-from-cart', { 'item_id':id }, getConfig('application/json')
+              ).then(data =>{
+                if(data.data.status){
+                  let child = document.getElementById(id);
+                  child.parentElement.remove();
+                }
+              })
+        },
+        deleteAllItems(){
+            axios.post(
+                  'api/flush-cart', getConfig('application/json')
+              ).then(data =>{
+                if(data.data.status){
+                  let child = document.getElementById(id);
+                  child.parentElement.remove();
+                }
+              })
         },
         showElement(){
             this.hidden=!this.hidden;
         },
         async  get_basket_items() { 
             const result = await axios
-            .get(url+"api/get_card_items")
+            .get("api/get-cart-items")
             .then((res) => {
                 return res.data;
             })

@@ -75,7 +75,6 @@
   <script>
   import axios from 'axios';
   import router from "@/js/router";
-  import {url} from '@/js/config.js';
 
   import {getConfig} from '@/js/cookie.js';
   
@@ -115,7 +114,7 @@
     name: 'AdminPage',
     methods: {
         logOut () {
-            axios.post(url+'farabi-admin/logout');
+            axios.post('farabi-admin/logout');
             setTimeout(()=>{router.push({path: '/login'})}, 200);
             
         },
@@ -178,12 +177,12 @@
             data.append('traits', this.traits);
             data.append('price_array', JSON.stringify(this.price_array));
             console.log(data)
-            axios.post(url+'farabi-admin/create-item',data , getConfig('multipart/form-data')
+            axios.post('farabi-admin/create-item',data , getConfig('multipart/form-data')
             )
         },
         addCategory (event) {
             event.preventDefault();
-            axios.post(url+'farabi-admin/create-tag', {'tag_name': this.category_name})
+            axios.post('farabi-admin/create-tag', {'tag_name': this.category_name})
             .then(result => result.data);
             setTimeout(async ()=>{
                 let arr2 =await this.get_tags()
@@ -214,7 +213,7 @@
         },
         deleteTag(tag_name){
             axios.post(
-                url+'farabi-admin/delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
+                'farabi-admin/delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
             ).then(data =>{
             if(data.data.result){
                 let child = document.getElementById(tag_name);
@@ -225,7 +224,7 @@
         deleteItem(item_id){
             
             axios.post(
-                url+'farabi-admin/delete-item', { 'id': item_id }, getConfig('application/json')
+                'farabi-admin/delete-item', { 'id': item_id }, getConfig('application/json')
             ).then(data =>{
             if(data.data.result){
                 let child = document.getElementById(item_id);
@@ -235,7 +234,7 @@
         },
         editTag(tag_name,tag_new_name){
             axios.patch(
-                url+'farabi-admin/edit-tag', { 'tag_name': tag_name,'tag_new_name':tag_new_name }, getConfig('application/json')
+                'farabi-admin/edit-tag', { 'tag_name': tag_name,'tag_new_name':tag_new_name }, getConfig('application/json')
             ).then(() =>{
                 for(let i in this.array_tags.tags){
                     if(this.array_tags.tags[i].name===tag_name){
@@ -270,13 +269,13 @@
             data.append('traits', this.traits);
             data.append('price_array', JSON.stringify(this.price_array));
             console.log(data)
-            axios.patch(url+'farabi-admin/edit-item',data , getConfig('multipart/form-data'))
+            axios.patch('farabi-admin/edit-item',data , getConfig('multipart/form-data'))
 
            
         },
         async  get_items() { 
             const result = await axios
-            .get(url+"api/items")
+            .get("api/items")
             .then((res) => {
                 return res.data;
             })
@@ -286,7 +285,7 @@
         },
         async  get_tags() { 
             const result = await axios
-            .get(url+"api/tags")
+            .get("api/tags")
             .then((res) => {
                 return res.data;
             })

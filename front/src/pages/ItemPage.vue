@@ -6,7 +6,6 @@
 </template>
   
 <script>
-import {url} from '@/js/config.js';
 import axios from 'axios';
 export default {
     name: 'ItemPage',
@@ -23,7 +22,7 @@ export default {
     methods:{
         async  get_items() { 
             const result = await axios
-            .get(url+"api/item?slug="+this.slug)
+            .get("api/item?slug="+this.slug)
             .then((res) => {
                 return res.data;
             })
@@ -33,7 +32,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            axios.post(url+'api/add_to_card', {'id': this.item_id})
+            axios.post('api/add_to_card', {'id': this.item_id})
             .then(result => result.data);
         }
     },
