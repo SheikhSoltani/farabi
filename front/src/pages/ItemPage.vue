@@ -11,12 +11,12 @@ export default {
     name: 'ItemPage',
     props: {
         slug: String,
+        id:Number
     },
     data(){
         return{
           item:[
           ],
-          item_id:''
         }
     },
     methods:{
@@ -32,7 +32,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            axios.post('api/add_to_card', {'id': this.item_id})
+            axios.post('api/add_to_card', {'id': this.id})
             .then(result => result.data);
         }
     },

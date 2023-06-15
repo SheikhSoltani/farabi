@@ -32,8 +32,10 @@ const routes =[
         component: AdminPage,
     },
     {
-        path:'/item',
+        name:'Item',
+        path:'/item/:id',
         component: ItemPage,
+        props: (route) => ({  id: parseInt(route.params.id) })
     },
     {
         path:'/items',

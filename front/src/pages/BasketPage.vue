@@ -18,7 +18,7 @@
             </div>
             <button @click="send">отправить</button>
         </div>
-        <button @click="">очистить корзину</button>
+        <button @click="deleteAllItems">очистить корзину</button>
     </div>
     <div v-for="item in array.items" v-bind:key="item">
         <div>
@@ -61,8 +61,8 @@
 
 
 import {url} from '@/js/config.js';
-//import {getConfig} from '@/js/cookie.js';
 import axios from 'axios';
+  import {getConfig} from '@/js/cookie.js';
 
 
 
@@ -96,7 +96,7 @@ export default {
                   'api/flush-cart', getConfig('application/json')
               ).then(data =>{
                 if(data.data.status){
-                  let child = document.getElementById(id);
+                  let child = document.getElementById('');
                   child.parentElement.remove();
                 }
               })

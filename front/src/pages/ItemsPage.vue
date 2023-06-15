@@ -7,6 +7,7 @@
             <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="150" alt="img">
             <p>{{item.name}}</p>
             <br/>
+            <router-link :to="{ name: 'Item', params: { id: item.id } }">перейти на страницу товара</router-link>
         </div>
     </div>
 </template>
