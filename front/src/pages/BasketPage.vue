@@ -108,6 +108,7 @@ export default {
             const result = await axios
             .get("api/get-cart-items")
             .then((res) => {
+              console.log(res)
                 return res.data;
             })
             .catch(() => {

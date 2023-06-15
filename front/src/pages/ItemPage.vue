@@ -7,6 +7,8 @@
   
 <script>
 import axios from 'axios';
+import {getConfig} from '@/js/cookie.js';
+
 export default {
     name: 'ItemPage',
     props: {
@@ -32,7 +34,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            axios.post('/api/add_to_card', {'id': this.item.item.id})
+            axios.post('/api/add-to-cart', {'item_id': this.item.item.id}, getConfig('application/json'))
             .then(result => result.data);
         }
     },

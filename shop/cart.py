@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 
 from .models import Item
+from .serializers import ItemSerializer
 
 
 class Cart(object):
@@ -53,13 +54,16 @@ class Cart(object):
         product_ids = self.cart.keys()
         # получение объектов product и добавление их в корзину
         products = Item.objects.filter(id__in=product_ids)
+        # print(products)
         for product in products:
+            # print(product)
             self.cart[str(product.id)]['product'] = product
 
+        print(self.cart.values())
+
         for item in self.cart.values():
-            item['price'] = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
-            yield item
+            print(item)
+            yield ItemSerializer(item['product']).data
 
     def len(self):
         """

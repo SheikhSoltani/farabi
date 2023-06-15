@@ -24,9 +24,12 @@ SECRET_KEY = 'django-insecure-6$j01xe=4$_!ljgc@%wva*bu6lc8ot)ql_y071shth7+a^x%ws
 SESSION_ENGINE ='django.contrib.sessions.backends.db'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# CART_SESSION_ID = 'cart'
-# SESSION_COOKIE_AGE = 42600
+CART_SESSION_ID = 'cart'
+CORS_ORIGIN_ALLOW_ALL = True
+SESSION_COOKIE_AGE = 42600
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080", 'http://127.0.0.1:8080', 'http://127.0.0.1:8000']
+
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:8080",
