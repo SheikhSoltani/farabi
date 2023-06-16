@@ -60,7 +60,7 @@ def add_to_cart(request):
 @api_view(['POST'])
 def delete_from_cart(request):
     cart = Cart(request)
-    cart.remove(request.data['item_id'])
+    cart.remove(get_object_or_404(Item, id=request.data['item_id']))
     return Response({
         'result': True
     })

@@ -1,15 +1,19 @@
 <template>
     <section class="admin_page">
-        <button @click="logOut">Выход</button>
-        <button @click="showElement(this.hidden_2,'hidden_2',false)">Добавить товар</button>
-        <button @click="showElement(this.hidden_1,'hidden_1',false),fill('category_name','')">Добавить категорию</button>
-        <div v-show="hidden_1">
+        <button class="admin_exit_button" @click="logOut">Выход</button>
+        <div class="admin_header_buttons">
+            <button @click="showElement(this.hidden_1,'hidden_1',false),fill('category_name','')">Добавить категорию</button>
+            <button @click="showElement(this.hidden_2,'hidden_2',false)">Добавить товар</button>
+        </div>
+        <div class="admin_item_panel" v-show="hidden_1">
+            <button class="admin_exit_button" @click="showElement(this.hidden_1,'hidden_1',false),fill('category_name','')">Закрыть</button>
             <label for="">Название категории</label>
             <input type="text" v-model="category_name">
             <button v-show="!eddit" @click="addCategory">Добавить</button>
             <button v-show="eddit" @click="editTag(this.previous_category_name,this.category_name)">Заменить</button>
         </div>
         <div class="admin_item_panel" v-show="hidden_2">
+            <button class="admin_exit_button"  @click="showElement(this.hidden_2,'hidden_2',false)">Закрыть</button>
             <label for="">Название товара</label>
             <input type="text" v-model="item_name">
             <select v-model="category_id">
@@ -56,18 +60,24 @@
             <button v-show="!eddit" @click="addItem">Добавить</button>
             <button v-show="eddit" @click="editItem">Заменить</button>
         </div>
-        <div v-for="item in array.items" v-bind:key="item">
-            <div style="margin: 5px;">
-                <p style="width: 100px;display: inline-block;overflow: hidden;">{{item.name}}</p>
-                <button :id="item.id" @click="deleteItem(item.id)">удалить</button>
-                <button @click="showElement(this.hidden_2,'hidden_2',true),fill('item_id',item.id)">редактировать</button>
+        <div class="admin_content">
+            <div>
+                <button :class="{ active: hidden_3 === true }" @click="showElement_2(true)">Категории</button>
+                <button :class="{ active: hidden_3 === false }" @click="showElement_2(false)">Товары</button>
             </div>
-        </div>
-        <div v-for="item in array_tags.tags" v-bind:key="item">
-            <div style="background: #313131;color: white;margin: 5px;">
-                <p style="width: 100px;display: inline-block;overflow: hidden;">{{item.name}}</p>
-                <button :id="item.name" @click="deleteTag(item.name)">удалить</button>
-                <button @click="showElement(this.hidden_1,'hidden_1',true),fill('category_name',item.name)">редактировать</button>
+            <div class="admin_content_items" v-show="!hidden_3" v-for="item in array.items" v-bind:key="item">
+                <div>
+                    <p>{{item.name}}</p>
+                    <button :id="item.id" @click="deleteItem(item.id)">удалить</button>
+                    <button @click="showElement(this.hidden_2,'hidden_2',true),fill('item_id',item.id)">редактировать</button>
+                </div>
+            </div>
+            <div class="admin_content_tags" v-show="hidden_3" v-for="item in array_tags.tags" v-bind:key="item">
+                <div>
+                    <p>{{item.name}}</p>
+                    <button :id="item.name" @click="deleteTag(item.name)">удалить</button>
+                    <button @click="showElement(this.hidden_1,'hidden_1',true),fill('category_name',item.name)">редактировать</button>
+                </div>
             </div>
         </div>
     </section>
@@ -89,6 +99,7 @@
         image:null,
         hidden_1:false,
         hidden_2:false,
+        hidden_3:true,
         eddit:false,
         category_name:'',
         previous_category_name:'',
@@ -209,6 +220,11 @@
                 else if(name==='hidden_2'){
                     this.hidden_2=true;
                 }
+            }
+        },
+        showElement_2(value){
+            if(this.hidden_3!=value){
+                this.hidden_3=value;
             }
         },
         deleteTag(tag_name){

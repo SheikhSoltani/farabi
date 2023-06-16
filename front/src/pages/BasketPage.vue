@@ -21,9 +21,10 @@
         <button @click="deleteAllItems">очистить корзину</button>
     </div>
     <div v-for="item in array.items" v-bind:key="item">
-        <div>
+        <div class="basket_item" :id="item.id">
             <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="150" alt="img">
             <p>{{item.name}}</p>
+            <button @click="deliteItem(item.id)">убать товар из корзины</button>
             <br/>
         </div>
     </div>
@@ -85,7 +86,7 @@ export default {
             axios.post(
                   'api/delete-from-cart', { 'item_id':id }, getConfig('application/json')
               ).then(data =>{
-                if(data.data.status){
+                if(data.data.result){
                   let child = document.getElementById(id);
                   child.parentElement.remove();
                 }
@@ -95,9 +96,11 @@ export default {
             axios.post(
                   'api/flush-cart', getConfig('application/json')
               ).then(data =>{
-                if(data.data.status){
-                  let child = document.getElementById('');
-                  child.parentElement.remove();
+                if(data.data.result){
+                    let childs = document.getElementsByClassName('basket_item');
+                    Array.from(childs).forEach(child => {
+                        child.remove();
+                    });
                 }
               })
         },
