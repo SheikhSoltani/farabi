@@ -10,6 +10,7 @@ from rest_framework.permissions import AllowAny
 from shop.models import Item , Tag
 from .cart import Cart
 from .serializers import ItemSerializer,TagSerializer
+from .services import send_mail_to_address
 
 logger = logging.getLogger('django')
 
@@ -80,3 +81,8 @@ def get_cart_items(request):
     return Response({
         'items': cart
     })
+
+
+@api_view(['POST'])
+def send_mail(request):
+    send_mail_to_address(request.data['name'], request.data['phone'], request.data['email'])
