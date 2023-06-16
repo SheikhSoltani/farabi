@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    box-sizing: border-box;
 }
 .login_page{
     width: 100vw;
@@ -53,14 +54,80 @@
     justify-content: center;
 }
 .admin_item_panel{
+    position: absolute;
+    top:0;
+    z-index: 2;
+    width: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:flex-start;
     align-items: center;
     background: #313131;
     color: #fafafa;
+    padding: 30px;
+    font-size: 22px;
+}
+.admin_item_panel>.admin_exit_button{
+    position: absolute;
+    top:25px;
+    right:120px;
 }
 .admin_item_panel>input{
-    width: 50%;
+    width: 30%;
     margin: 10px;
+}
+.admin_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 25%;
+    padding: 0 0 15px;
+    border: 1px solid #313131;
+}
+.admin_content>div{
+    margin: 5px;
+    padding: 10px;
+    font-size: 22px;
+}
+.admin_content>div>button{
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 26px;
+}
+.admin_content>div>button.active{
+    color: #fafafa;
+    background: #313131;
+}
+.admin_content_tags{
+    background: #313131;
+    color: white;
+}
+.admin_content>div>div{
+    display: flex;
+    align-items: center;
+}
+.admin_content>div>div>button{
+    font-size: 20px;
+    border-radius: 8px;
+    margin: 0 5px;
+}
+.admin_content>div>div>p{
+    min-width: 100px;
+}
+.admin_header_buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.admin_header_buttons>button{
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 26px;
+}
+.admin_exit_button{
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 26px;
 }
