@@ -13,39 +13,17 @@
             <button v-show="eddit" @click="editTag(this.previous_category_name,this.category_name)">Заменить</button>
         </div>
         <div class="admin_item_panel" v-show="hidden_2">
-            <button class="admin_exit_button"  @click="showElement(this.hidden_2,'hidden_2',false)">Закрыть</button>
+            <button class="admin_exit_button"  @click="showElement(this.hidden_2,'hidden_2',false),changeValueToFalse()">Закрыть</button>
             <label for="">Название товара</label>
             <input type="text" v-model="item_name">
             <select v-model="category_id">
                 <option disabled value="">Выберите категорию</option>
                 <option v-for="item in array_tags.tags" v-bind:key="item" :value="item.id">{{ item.name }}</option>
             </select>
-            <label for="">Описание товара</label>
-            <input type="text" v-model="description">
-            <label for="">Назначение товара</label>
-            <input type="text" v-model="purpose">
             <label for="avatar" class="input-file">
                 <input  onmouseout="this.blur();"  type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" >
                 <span>Выберите файл</span>
             </label>
-            <label for="">Цвет товара</label>
-            <input type="text" v-model="color">
-            <label for="">Степень глянца товара</label>
-            <input type="text" v-model="degree_of_gloss">
-            <label for="">Гарантия товара</label>
-            <input type="text" v-model="warranty">
-            <label for="">Срок хранения</label>
-            <input type="text" v-model="expiration_date">
-            <label for="">Состав товара</label>
-            <input type="text" v-model="composition">
-            <label for="">Метод использования товара</label>
-            <input type="text" v-model="method_of_use">
-            <label for="">Расход товара</label>
-            <input type="text" v-model="expense">
-            <label for="">Огнеопасно товара</label>
-            <input type="checkbox" v-model="flammable">
-            <label for="">Свойства товара</label>
-            <input type="text" v-model="traits">
             <div v-for="i in price_array" v-bind:key="i">
                 <label for="volume">volume:</label>
                 <input type="text" name="volume" id="" v-bind:value="i.volume" @input="i.volume=$event.target.value">
@@ -56,6 +34,38 @@
             </div>
             <button @click="AddPrice">AddPrice</button>
             <button @click="PopPrice">DellPrice</button>
+            <label v-show="show_array[0].description" for="">Описание товара</label>
+            <input v-show="show_array[0].description" type="text" v-model="description">
+            <label v-show="show_array[0].purpose" for="">Назначение товара</label>
+            <input v-show="show_array[0].purpose" type="text" v-model="purpose">
+            <label v-show="show_array[0].color" for="">Цвет товара</label>
+            <input v-show="show_array[0].color" type="text" v-model="color">
+            <label v-show="show_array[0].degree_of_gloss" for="">Степень глянца товара</label>
+            <input v-show="show_array[0].degree_of_gloss" type="text" v-model="degree_of_gloss">
+            <label v-show="show_array[0].warranty" for="">Гарантия товара</label>
+            <input v-show="show_array[0].warranty" type="text" v-model="warranty">
+            <label v-show="show_array[0].expiration_date" for="">Срок хранения</label>
+            <input v-show="show_array[0].expiration_date" type="text" v-model="expiration_date">
+            <label v-show="show_array[0].composition" for="">Состав товара</label>
+            <input v-show="show_array[0].composition" type="text" v-model="composition">
+            <label v-show="show_array[0].method_of_use" for="">Метод использования товара</label>
+            <input v-show="show_array[0].method_of_use" type="text" v-model="method_of_use">
+            <label v-show="show_array[0].expense" for="">Расход товара</label>
+            <input v-show="show_array[0].expense" type="text" v-model="expense">
+            <label v-show="show_array[0].flammable" for="">Огнеопасно товара</label>
+            <input v-show="show_array[0].flammable" type="checkbox" v-model="flammable">
+            <label v-show="show_array[0].traits" for="">Свойства товара</label>
+            <input v-show="show_array[0].traits" type="text" v-model="traits">
+            
+            <select v-model="selectedCategory">
+                <option disabled value="">Выберите новое поле</option>
+                <option v-show="!value" v-for="(value, key) in show_array[0]" v-bind:key="key" :value="key">{{ key }}</option>
+            </select>
+            <!-- <div v-for="(value, key) in show_array[0]" v-bind:key="key">
+                <div v-if="value===false">
+                    <button @click="changeValue(key)">{{ key }}</button>
+                </div>
+            </div> -->
             <br/>
             <button v-show="!eddit" @click="addItem">Добавить</button>
             <button v-show="eddit" @click="editItem">Заменить</button>
@@ -114,12 +124,34 @@
         expiration_date:'',
         composition:'',
         method_of_use:'',
+        selectedCategory: '',
         expense:'',
         flammable: false,
         traits:'',
         array:[],
+        show_array:[{
+            description: false,
+            purpose: false,
+            color: false,
+            degree_of_gloss: false,
+            warranty: false,
+            expiration_date: false,
+            composition: false,
+            method_of_use: false,
+            expense: false,
+            flammable: false,
+            traits: false,
+        }],
         array_tags:[],
         price_array: [{volume:"",bulk:"",retail:""},],
+      }
+    }, 
+    watch: {
+      selectedCategory: function (newValue) {
+        if (newValue !== '') {
+          this.show_array[0][newValue] = true;
+          this.selectedCategory="Выберите новое поле"
+        }
       }
     },
     name: 'AdminPage',
@@ -193,12 +225,20 @@
         },
         addCategory (event) {
             event.preventDefault();
-            axios.post('farabi-admin/create-tag', {'tag_name': this.category_name})
+            axios.post('farabi-admin/create-tag', {'tag_name': this.category_name}, getConfig('application/json'))
             .then(result => result.data);
             setTimeout(async ()=>{
                 let arr2 =await this.get_tags()
                 this.array_tags = arr2;
             }, 100);
+        },
+        changeValue(value){
+            this.show_array[0][value] = true;
+        },
+        changeValueToFalse(){
+            for(let i in this.show_array[0]){
+                this.show_array[0][i] = false;
+            }
         },
         showElement (hideElem,name,eddit) {
             if(eddit===true){
@@ -328,23 +368,6 @@
             return result.result
         }
         logged_or_not()
-        // async function logged_or_not() {
-        //     console.log('logged_or_not');
-        //     const result = await axios
-        //     .get(url+"farabi-admin/logged")
-        //     .then((res) => {
-        //     return res.data;
-        //     })
-        //     .catch(() => {
-        //     console.log("fail");
-        //     });
-        //     if (result.result === false) {
-        //         console.log(result.result);
-        //         await router.push({path: '/login'})
-        //     }
-        //     return result.result
-        // }
-        // logged_or_not()
         setTimeout(async ()=>{
             let arr =await this.get_items()
             let arr2 =await this.get_tags()
