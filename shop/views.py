@@ -77,7 +77,6 @@ def flush_cart(request):
 @api_view(['GET'])
 def get_cart_items(request):
     cart = Cart(request)
-    print(cart)
     return Response({
         'items': cart
     })

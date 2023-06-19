@@ -12,6 +12,7 @@ def send_mail_to_address(name: str, phone: str, email: str):
         ) as connection:
             subject = "Новый заказ"
             email_from = settings.EMAIL_HOST_USER
-            recipient_list = ["ЗДЕСЬ емейл челов которым отправлять", ]
+            recipient_list = [email, ]
+            #ЗДЕСЬ емейл челов которым отправлять
             message = "Тут хороший шаблон для сообщения"
             EmailMessage(subject, message, email_from, recipient_list, connection=connection).send()

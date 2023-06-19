@@ -131,8 +131,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'your@djangoapp.com'
-EMAIL_HOST_PASSWORD = 'your password'
+EMAIL_HOST_USER = 'dotan2.maksim@gmail.com'
+EMAIL_HOST_PASSWORD = 'fasdfiuibbouqqyg'
 
 LOGGING = {
     "version": 1,
