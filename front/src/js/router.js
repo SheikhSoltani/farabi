@@ -42,7 +42,7 @@ const routes =[
         component: ItemsPage,
     },
     {
-        path:'/basket',
+        path:'/cart',
         component: BasketPage,
     },
 ]

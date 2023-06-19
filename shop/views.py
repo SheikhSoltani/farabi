@@ -68,6 +68,7 @@ def delete_from_cart(request):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def flush_cart(request):
     cart = Cart(request)
     cart.clear()

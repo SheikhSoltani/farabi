@@ -80,7 +80,7 @@ export default {
     },
     methods:{
         send(){
-            axios.post('api/create-order',{'email':this.email,'phone':this.phone,'name':this.name} )
+            axios.post('api/create-order',{'email':this.email,'phone':this.phone,'name':this.name}, getConfig('application/json') )
         },
         deliteItem(id){
             axios.post(
