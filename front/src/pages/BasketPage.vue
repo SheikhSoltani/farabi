@@ -94,7 +94,7 @@ export default {
         },
         deleteAllItems(){
             axios.post(
-                  'api/flush-cart', getConfig('application/json')
+                  'api/flush-cart',{}, getConfig('application/json')
               ).then(data =>{
                 if(data.data.result){
                     let childs = document.getElementsByClassName('basket_item');
