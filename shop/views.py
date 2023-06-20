@@ -83,6 +83,14 @@ def get_cart_items(request):
     })
 
 
+@api_view(['GET'])
+def get_items_count_in_cart(request):
+    cart = Cart(request)
+    return Response({
+        'length': cart.len()
+    })
+
+
 @api_view(['POST'])
 def send_mail(request):
     send_mail_to_address(request.data['name'], request.data['phone'], request.data['email'])
