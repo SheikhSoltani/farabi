@@ -21,9 +21,20 @@ export default {
       return {
         array:[],
         url:null,
+        cart_length:0
       }
     },
     methods:{
+        async  get_cart_length() { 
+            const result = await axios
+            .get("/api/get_length_cart")
+            .then((res) => {
+                return res.data;
+            })
+            .catch(() => {
+            });
+            return result
+        },
         async  get_items() { 
             const result = await axios
             .get("api/items")
@@ -39,8 +50,10 @@ export default {
         this.url=url;
         setTimeout(async ()=>{
             let arr =await this.get_items()
+            this.cart_length =await this.get_cart_length()
             this.array = arr;
             console.log(this.array);
+            console.log(this.cart_length);
         }, 100);
     },
 }
