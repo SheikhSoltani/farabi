@@ -45,25 +45,25 @@
             <img :src="this.array.items[0].image" alt="">
             <h1>{{this.array.items[0].name}}</h1>
             <button>в корзину</button>
-            <router-link :to="{ name: 'Item', params: { slug: this.array.items[0].slug } }">перейти на страницу товара</router-link>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[0].slug } }">страница товара</router-link>
           </div>
           <div>
             <img :src="this.array.items[1].image" alt="">
             <h1>{{this.array.items[1].name}}</h1>
             <button>в корзину</button>
-            <router-link :to="{ name: 'Item', params: { slug: this.array.items[1].slug } }">перейти на страницу товара</router-link>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[1].slug } }">страница товара</router-link>
           </div>
           <div>
             <img :src="this.array.items[2].image" alt="">
             <h1>{{this.array.items[2].name}}</h1>
             <button>в корзину</button>
-            <router-link :to="{ name: 'Item', params: { slug: this.array.items[2].slug } }">перейти на страницу товара</router-link>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[2].slug } }">страница товара</router-link>
           </div>
           <div>
             <img :src="this.array.items[3].image" alt="">
             <h1>{{this.array.items[3].name}}</h1>
             <button>в корзину</button>
-            <router-link :to="{ name: 'Item', params: { slug: this.array.items[3].slug } }">перейти на страницу товара</router-link>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[3].slug } }">страница товара</router-link>
           </div>
         </div>
         <button>СМОТРЕТЬ ЕЩЕ</button>
@@ -127,7 +127,7 @@ export default {
     },
     async  get_items() { 
         const result = await axios
-        .get("api/items")
+        .get("api/main_page_items")
         .then((res) => {
             return res.data;
         })
