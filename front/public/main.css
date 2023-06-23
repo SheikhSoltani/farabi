@@ -126,8 +126,106 @@
     border-radius: 8px;
     font-size: 26px;
 }
-.admin_exit_button{
+.admin_buttons{
     margin: 10px;
     border-radius: 8px;
-    font-size: 26px;
+    font-size: 20px;
+    padding: 10px;
+}
+.admin_hidden{
+    display: grid;  
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+}
+.select-dropdown {
+    position: relative;
+    background-color: #e6e6e6;
+    width: auto;
+    float: left;
+    max-width: 100%;
+    margin: 10px;
+    border-radius: 2px;
+}
+.select-dropdown select {
+    font-family: "helvetica neue", helvetica;
+    font-size: 1rem;
+    font-weight: 200;
+    max-width: 100%;
+    padding: 8px 24px 8px 10px;
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.select-dropdown select:active, .select-dropdown select:focus {
+    outline: none;
+    box-shadow: none;
+}
+.select-dropdown:after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    right: 8px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #aaa;
+}
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+.input-file span {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 18px;
+	vertical-align: middle;
+	color: rgb(255 255 255);
+	text-align: center;
+	border-radius: 4px;
+	background-color: #419152;
+	line-height: 22px;
+	height: 40px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+.input-file:hover span {
+	background-color: #59be6e;
+}
+.input-file:active span {
+	background-color: #2E703A;
+}
+.input-file input[type=file]:disabled + span {
+	background-color: #eee;
+}
+.admin_price>div{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.admin_price>div>button{
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px;
+}
+.admin_price>div>input{
+    margin: 10px;
 }
