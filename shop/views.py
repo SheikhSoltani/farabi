@@ -1,4 +1,5 @@
 import logging
+import random
 
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404
@@ -35,6 +36,16 @@ def single_item(request):
 def items(request):
     return Response({
         'items': ItemSerializer(Item.objects.all(), many=True).data
+    })
+
+
+@api_view(['GET'])
+def main_page_items(request):
+    items_query = list(Item.objects.all())
+    random_items = random.sample(items_query, 4)
+
+    return Response({
+        'items': ItemSerializer(random_items, many=True).data
     })
 
 
