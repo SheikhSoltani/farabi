@@ -2,18 +2,36 @@
     <div>
         <h1>MainPage</h1>
     </div>
-    <ItemPage slug="klei"/>
 </template>
   
 <script>
+import axios from 'axios';
 
-
-import ItemPage from '@/pages/ItemPage.vue'
 
 export default {
   name: 'MainPage',
-  components: {
-    ItemPage,
+  data() {
+    return {
+      cart_length:0
+    }
+  },
+  methods:{
+    async  get_cart_length() { 
+        const result = await axios
+        .get("/api/get_length_cart")
+        .then((res) => {
+            return res.data;
+        })
+        .catch(() => {
+        });
+        return result
+    },
+  },
+  async mounted() {
+      setTimeout(async ()=>{
+          this.cart_length =await this.get_cart_length()
+            console.log(this.cart_length);
+      }, 100);
   },
 }
 </script>
