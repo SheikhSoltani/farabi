@@ -20,30 +20,50 @@
         <div>Рекомендуем</div>
       </section>
       <div>
-        <div>безопасность</div>
-        <img src="" alt="">
-        <div>качество</div>
-        <img src="" alt="">
-        <div>сотрудничество</div>
+        <div>
+          <img src="@/assets/heart.svg" alt="">
+          <h1>БЕЗОПАСНОСТЬ</h1>
+          <p>Мы ответственно относимся к изготовлению продукции, чтобы она была безопасна при работе и после</p>
+        </div>
+        <img src="@/assets/polygon_1.svg" alt="">
+        <div>
+          <img src="@/assets/quality.svg" alt="">
+          <h1>КАЧЕСТВО</h1>
+          <p>Мы ответственно относимся к изготовлению продукции, чтобы она была безопасна при работе и после</p>
+        </div>
+        <img src="@/assets/polygon_1.svg" alt="">
+        <div>
+          <img src="@/assets/arms.svg" alt="">
+          <h1>СОТРУДНИЧЕСТВО</h1>
+          <p>Мы ответственно относимся к изготовлению продукции, чтобы она была безопасна при работе и после</p>
+        </div>
       </div>
       <section class="second_section">
         <h1>ПОПУЛЯРНЫЕ ТОВАРЫ</h1>
         <div>
           <div>
-            <img src="" alt="">
+            <img :src="this.array.items[0].image" alt="">
+            <h1>{{this.array.items[0].name}}</h1>
             <button>в корзину</button>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[0].slug } }">перейти на страницу товара</router-link>
           </div>
           <div>
-            <img src="" alt="">
+            <img :src="this.array.items[1].image" alt="">
+            <h1>{{this.array.items[1].name}}</h1>
             <button>в корзину</button>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[1].slug } }">перейти на страницу товара</router-link>
           </div>
           <div>
-            <img src="" alt="">
+            <img :src="this.array.items[2].image" alt="">
+            <h1>{{this.array.items[2].name}}</h1>
             <button>в корзину</button>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[2].slug } }">перейти на страницу товара</router-link>
           </div>
           <div>
-            <img src="" alt="">
+            <img :src="this.array.items[3].image" alt="">
+            <h1>{{this.array.items[3].name}}</h1>
             <button>в корзину</button>
+            <router-link :to="{ name: 'Item', params: { slug: this.array.items[3].slug } }">перейти на страницу товара</router-link>
           </div>
         </div>
         <button>СМОТРЕТЬ ЕЩЕ</button>
@@ -90,7 +110,8 @@ export default {
   name: 'MainPage',
   data() {
     return {
-      cart_length:0
+      cart_length:0,
+      array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
     }
   },
   methods:{
@@ -104,11 +125,25 @@ export default {
         });
         return result
     },
+    async  get_items() { 
+        const result = await axios
+        .get("api/items")
+        .then((res) => {
+            return res.data;
+        })
+        .catch(() => {
+        });
+        return result
+    },
   },
   async mounted() {
       setTimeout(async ()=>{
-          this.cart_length =await this.get_cart_length()
+            let arr =await this.get_items()
+            this.array = arr;
+            this.cart_length =await this.get_cart_length()
+            console.log(this.array);
             console.log(this.cart_length);
+            console.log(this.array.items[0].image);
       }, 100);
   },
 }
