@@ -6,7 +6,7 @@
                 <button><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></button>
             </div>
             <div class="middle">
-                <input type="text" placeholder="Поиск по сайту">
+                <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
                 <button><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></button>
             </div>
             <div class="last">
@@ -20,20 +20,21 @@
             </div>
             <div class="items_content_body">
                 <div class="items_content_item">
-                    <div v-for="item in array.items" :key="item">
+                    <div v-for="item,index in array.items" :key="item">
                         <img :src="item.image" width="153" height="168" alt="">
                         <div>
-                            <p>{{this.array.items[0].name}}</p>
+                            <p>{{this.array.items[index].name}}</p>
                             <div>
                                 <button>в корзину</button>
-                                <router-link :to="{ name: 'Item', params: { slug: this.array.items[0].slug } }">страница товара</router-link>
+                                <router-link :to="{ name: 'Item', params: { slug: this.array.items[index].slug } }">страница товара</router-link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h1>Категории</h1>
-                    <button v-for="tag in tags.tags" :key="tag">{{ tag.name }}</button>
+                    <button :class="{ active: selectTag === tag.name }" v-for="tag in tags.tags" :key="tag" @click="searchByTag(tag.name)">{{ tag.name }}</button>
+                    <button @click="cleanFilter">Сбросить фильтр</button>
                 </div>
             </div>
         </section>
@@ -77,10 +78,34 @@ export default {
         array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
         tags:{tags:[{id:0,name:''}]},
         url:null,
+        query:'',
+        selectTag:'',
         cart_length:0
       }
     },
     methods:{
+        cleanFilter(){
+            this.selectTag='';
+            this.query='';
+            let arr = this.get_items()
+            arr.then((value) => {
+                this.array = value;
+            });
+        },
+        search(){
+            let arr = this.get_items()
+            arr.then((value) => {
+                this.array = value;
+            });
+        },
+        searchByTag(tag){
+            this.selectTag=tag;
+            this.query='';
+            let arr = this.get_items()
+            arr.then((value) => {
+                this.array = value;
+            });
+        },
         async  get_cart_length() { 
             const result = await axios
             .get("/api/get_length_cart")
@@ -93,7 +118,7 @@ export default {
         },
         async  get_items() { 
             const result = await axios
-            .get("api/items")
+            .get("api/items?"+"q="+this.query+"&tag="+this.selectTag)
             .then((res) => {
                 return res.data;
             })
@@ -114,6 +139,9 @@ export default {
     },
     async mounted() {
         this.url=url;
+        if(this.$route.query.query){
+            this.query=this.$route.query.query;
+        }
         setTimeout(async ()=>{
             let arr =await this.get_items()
             this.tags =await this.get_tags()
