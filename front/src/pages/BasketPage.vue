@@ -1,5 +1,55 @@
 <template>
-    <div>
+    <header>
+      <div class="first">
+        <img src="@/assets/flogo.png" height="67" width="229" alt="logo">
+        <button><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></button>
+      </div>
+      <div class="middle">
+        <input type="text" placeholder="Поиск по сайту">
+        <button><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></button>
+      </div>
+      <div class="last">
+        <p>0</p>
+        <button><img src="@/assets/cart.png" width="30" height="30" alt=""></button>
+      </div>
+    </header>
+    <section class="cart_content">
+        <div class="cart_content_header">
+            <h1>Оформление заказа</h1>
+            <img src="@/assets/flogo.png" height="60" width="201"  alt="">
+        </div>
+        <div class="cart_content_body">
+            <div class="cart_content_item">
+                <span>{{this.array.items.length}}</span>
+                <div v-for="item in array.items" v-bind:key="item" :id="item.id">
+                    <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="153" height="168" alt="">
+                    <p>{{item.name}}</p>
+                    <div>
+                        <p>Количество</p>
+                        <input type="text" name="" id="">
+                        <span>kg</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>Товары:{{this.array.items.length}} шт.</p>
+                <input type="text" placeholder="Ваше имя...">
+                <input type="text" placeholder="+7(xxx)xxx-xx-xx">
+                <input type="text" placeholder="Способ получения...">
+                <textarea name="" id="" cols="30" rows="10" placeholder="Комментарий к заказу..."></textarea>
+                <button>Подтвердить заказ</button>
+            </div>
+        </div>
+
+    </section>
+    <footer class="min_footer">
+      <img src="@/assets/flogo.png" height="60" width="201"  alt="">
+      <p>made by DigitalSolution</p>
+    </footer>
+
+
+
+    <!-- <div>
         <h1>BasketPage</h1>
 
         <button @click="showElement">купить</button>
@@ -27,39 +77,12 @@
             <button @click="deliteItem(item.id)">убать товар из корзины</button>
             <br/>
         </div>
-    </div>
+    </div> -->
 </template>
-  <style>.input_block{
-    position: relative;
-}
-.input_block>input{
-    border: none;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
-    background: transparent;
-    color: #2e2e2e;
-    padding: 26px 12px 5px;
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 51px;
-    resize: none;box-sizing: border-box;
-    background: #fafafa;
-    overflow:visible;
-    box-sizing: border-box;
-    margin-bottom: 5px;
-}
-.input_block>span{
-    
-    font-size: 12px;
-    line-height: 16px;
-    transform: translateY(0px);
-    position: absolute;
-    left: 12px;
-    top: 10px;
-}</style>
-<script>
+  <style>
 
+  </style>
+<script>
 
 import {url} from '@/js/config.js';
 import axios from 'axios';
@@ -75,7 +98,7 @@ export default {
         email:'',
         name:'',
         phone:'',
-        array:[],
+        array:{items:{}},
       }
     },
     methods:{
