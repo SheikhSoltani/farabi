@@ -13,6 +13,7 @@
   <script>
   import axios from 'axios';
   import router from "@/js/router";
+  import {getConfig} from '@/js/cookie.js';
 
   
   
@@ -29,7 +30,7 @@
       signInButtonPressed (event) {
         event.preventDefault();
         const data =axios.post('farabi-admin/login', {'username': this.username, 'password': this.password},
-            {withCredentials: true})
+            {withCredentials: true}, getConfig('application/json'))
         .then(result => result.data);
         const printAddress = async () => {
           const a = await data;

@@ -2,6 +2,7 @@ import logging
 import random
 
 from django.contrib.auth.decorators import permission_required
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from rest_framework.decorators import api_view
@@ -34,8 +35,15 @@ def single_item(request):
 
 @api_view(['GET'])
 def items(request):
+    items_query = Item.objects.all()
+    query = request.GET.get('q', '')
+    tag = request.GET.get('tag', '')
+    if query:
+        items_query = Item.objects.filter(name__contains=query)
+    if tag:
+        items_query = Item.objects.filter(tag__name__contains=tag)
     return Response({
-        'items': ItemSerializer(Item.objects.all(), many=True).data
+        'items': ItemSerializer(items_query, many=True).data
     })
 
 
