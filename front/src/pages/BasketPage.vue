@@ -5,7 +5,7 @@
         <button><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></button>
       </div>
       <div class="middle">
-        <input type="text" placeholder="Поиск по сайту">
+        <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
         <button><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></button>
       </div>
       <div class="last">
@@ -87,6 +87,7 @@
 import {url} from '@/js/config.js';
 import axios from 'axios';
   import {getConfig} from '@/js/cookie.js';
+import router from "@/js/router";
 
 
 
@@ -102,6 +103,10 @@ export default {
       }
     },
     methods:{
+        search(){
+            console.log(this.query)
+            router.push({path: '/items',query: { query: this.query}})
+        },
         send(){
             axios.post('api/create-order',{'email':this.email,'phone':this.phone,'name':this.name}, getConfig('application/json') )
         },
