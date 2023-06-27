@@ -531,6 +531,10 @@ font-size: 40px;font-weight: 800;
     border: none;
     cursor: pointer;
 }
+.items_content_body>div:last-child>button.active{
+    background: #5B5B5B;
+    color: #fafafa;
+}
 .items_content_body>div:last-child>h1{
     text-align: center;
     transform: translate(0%,-120%);

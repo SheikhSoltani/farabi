@@ -40,6 +40,9 @@ const routes =[
     {
         path:'/items',
         component: ItemsPage,
+        query: {
+            query: '',
+        }
     },
     {
         path:'/cart',
