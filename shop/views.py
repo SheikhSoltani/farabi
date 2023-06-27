@@ -62,7 +62,6 @@ def tags(request):
 def add_to_cart(request):
     cart = Cart(request)
     item = get_object_or_404(Item, id=request.data['item_id'])
-    print(cart)
     cart.add(item)
     return Response({
         'result': True
