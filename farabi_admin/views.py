@@ -23,7 +23,6 @@ def log_in(request):
         })
 
     result = authenticate_user(request, request.data)
-    print(request.user.is_authenticated, 'already')
     if result:
         return Response({
             'logged': result
