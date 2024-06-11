@@ -25,18 +25,21 @@ SESSION_ENGINE ='django.contrib.sessions.backends.db'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 CART_SESSION_ID = 'cart'
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000"]
 SESSION_COOKIE_AGE = 42600
-ALLOWED_HOSTS = ['45.159.250.108', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8080", 'http://127.0.0.1:8080', 'http://127.0.0.1:8000']
+ALLOWED_HOSTS = ['*']
 some_data = True
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8080",
-    "http://localhost:8080",
-    "http://127.0.0.1:8000"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://127.0.0.1:8080",
+#     "http://localhost:8080",
+#     "http://127.0.0.1:8000"
+# ]
 CORS_ALLOW_CREDENTIALS=True
-
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080"]
+CSRF_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080"]
+CORS_ORIGINS_WHITELIST = ["http://127.0.0.1:8000", "http://127.0.0.1:8080"]
+CORS_ALLOWED_ORIGINS =["http://127.0.0.1:8000", "http://127.0.0.1:8080"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -131,8 +134,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'dotan2.maksim@gmail.com'
-EMAIL_HOST_PASSWORD = 'fasdfiuibbouqqyg'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 LOGGING = {
     "version": 1,

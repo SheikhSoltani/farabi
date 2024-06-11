@@ -42,22 +42,19 @@ class Item(models.Model):
                 bulk=price_unit['bulk'],
                 retail=price_unit['retail']
             ))
-        item = Item.objects.create(
-            name=info_dict['name'],
-            image=info_dict['image'],
-            description=info_dict['description'],
-            tag_id=int(info_dict['tag']),
-            purpose=info_dict['purpose'],
-            color=info_dict['color'],
-            degree_of_gloss=info_dict['degree_of_gloss'],
-            warranty=info_dict['warranty'],
-            expiration_date=info_dict['expiration_date'],
-            composition=info_dict['composition'],
-            method_of_use=info_dict['method_of_use'],
-            expense=info_dict['expense'],
-            flammable=json.loads(info_dict['flammable']),
-            traits=info_dict['traits']
-        )
+        info_dict.pop('price_array')
+        tag_instance = info_dict.pop('tag')[0]
+        tag_instance = Tag.objects.get(id=int(tag_instance))
+        data = {key: info_dict[key] for key in info_dict}
+
+        data['flammable'] = info_dict.get('flammable') == 'true'
+
+        if info_dict.get('image'):
+            data['image'] = info_dict.get('image')
+        else:
+            data['image'] = None
+
+        item = Item.objects.create(tag=tag_instance, **data)
         for price in price_objects:
             item.price.add(price)
 
@@ -69,7 +66,9 @@ class Item(models.Model):
             Price.objects.get(id=price_unit['id']).change_data(price_unit)
 
         item.name = info_dict['name']
-        item.image = info_dict['image']
+        print(info_dict)
+        if info_dict['image']:
+            item.image = info_dict['image']
         item.description = info_dict['description']
         item.purpose = info_dict['purpose']
         item.color = info_dict['color']
