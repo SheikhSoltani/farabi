@@ -87,6 +87,7 @@ def add_item(request):
 @csrf_exempt
 def edit_item(request):
     Item.edit_item(request.data)
+    print(request.data)
     return Response({
         'result': True
     })

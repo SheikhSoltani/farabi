@@ -28,6 +28,7 @@ def index(request):
 def single_item(request):
     item = get_object_or_404(Item, slug=request.GET.get('slug'))
     aboba = ItemSerializer(item, many=False).data
+    print(aboba)
     return Response({
         'item': aboba
     })
@@ -50,11 +51,16 @@ def items(request):
 @api_view(['GET'])
 def main_page_items(request):
     items_query = list(Item.objects.all())
-    random_items = random.sample(items_query, 4)
+    if len(items_query)>=4:
+        random_items = random.sample(items_query, 4)
 
+        return Response({
+            'items': ItemSerializer(random_items, many=True).data
+        })
+    
     return Response({
-        'items': ItemSerializer(random_items, many=True).data
-    })
+            'message': 'Not enough items(need 4)'
+        })
 
 
 @api_view(['GET'])

@@ -1,18 +1,18 @@
 <template>
     <div>
         <header>
-            <div class="first">
-                <img src="@/assets/flogo.png" height="67" width="229" alt="logo">
-                <button><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></button>
-            </div>
-            <div class="middle">
-                <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
-                <button><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></button>
-            </div>
-            <div class="last">
-                <p>0</p>
-                <button><img src="@/assets/cart.png" width="30" height="30" alt=""></button>
-            </div>
+        <div class="first">
+            <router-link :to="{ name: 'Main' }"><img src="@/assets/flogo.png" height="67" width="229" alt="logo"></router-link>
+            <router-link :to="{ name: 'Items' }"><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></router-link>
+        </div>
+        <div class="middle">
+            <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
+            <router-link :to="{ name: 'Contacts' }"><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></router-link>
+        </div>
+        <div class="last">
+            <p>{{this.cart_length}}</p>
+            <router-link :to="{ name: 'Basket' }"><img src="@/assets/cart.png" width="30" height="30" alt=""></router-link>
+        </div>
         </header>
         <section class="item_content">
             <div>
@@ -20,8 +20,26 @@
             </div>
             <div class="item_content_body">
                 <img :src="this.item.item.image" width="300" height="300" alt="">
-                <p> 1margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800; margin:0 0 40px; font-size: 40px; font-weight: 800;</p>
-                <button @click="addToBasket">добавить в корзину</button>
+                <p v-if="this.item.item.description"> Описание: {{ this.item.item.description }}</p>
+                <p v-if="this.item.item.purpose"> Назначение: {{ this.item.item.purpose }}</p>
+                <p v-if="this.item.item.color"> Цвет: {{ this.item.item.color }}</p>
+                <p v-if="this.item.item.degree_of_gloss"> Степень глянца: {{ this.item.item.degree_of_gloss }}</p>
+                <p v-if="this.item.item.warranty">Гарантия: {{ this.item.item.warranty }}</p>
+                <p v-if="this.item.item.expiration_date"> Срок годности: {{ this.item.item.expiration_date }}</p>
+                <p v-if="this.item.item.composition"> Состав: {{ this.item.item.composition }}</p>
+                <p v-if="this.item.item.method_of_use"> Метод использования: {{ this.item.item.method_of_use }}</p>
+                <p v-if="this.item.item.expense"> ---: {{ this.item.item.expense }}</p>
+                <p v-if="this.item.item.flammable"> Огнеопасный!</p>
+                <p v-if="this.item.item.traits===true"> Особенность: {{ this.item.item.traits }}</p>
+                <button @click="addToBasket">Добавить в корзину</button>
+            </div>
+            <div v-if="this.item.item.price_serialized" class="item_table">
+                <div>
+                    <div>Объём</div><div>Оптом</div><div>Розница</div>
+                </div>
+                <div v-for="item in this.item.item.price_serialized" :key="item.id">
+                    <div>{{ item.volume }} кг.</div><div>{{ item.bulk }} тг.</div><div>{{item.retail}} тг.</div>
+                </div>
             </div>
         </section>
         <footer>
@@ -45,16 +63,11 @@
                 </div>
             </div>
             <div class="footer_middle"><div style="position:relative;overflow:hidden;"><a href="https://yandex.kz/maps/162/almaty/?utm_medium=mapframe&utm_source=maps" style="display: none;color:#eee;font-size:12px;position:absolute;top:0px;">Алматы</a><a href="https://yandex.kz/maps/162/almaty/house/Y08YfwdnQEUAQFppfX52eH5hZg==/?ll=76.907887%2C43.279144&utm_medium=mapframe&utm_source=maps&z=17.15" style="color:#eee;font-size:12px;position:absolute;top:14px;">Проспект Рыскулова, 92А — Яндекс Карты</a><iframe src="https://yandex.kz/map-widget/v1/?ll=76.907887%2C43.279144&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg2NzMxMTY5NBJH0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINCg0YvRgdKb0rHQu9C-0LIg0LTQsNKj0pPRi9C70YssIDky0JAiCg3Z0JlCFewdLUI%2C&z=17.15" width="530" height="250" frameborder="1" allowfullscreen="true" style="position:relative;border:none;border-radius: 15px;"></iframe></div></div>
-            <div class="footer_last">
-                <div>red</div>
-            </div>
+            
             <img src="@/assets/flogo.png" height="60" width="201"  alt="">
-            <p>made by DigitalSolution</p>
+            <p>© 2023-2024</p>
         </footer>
     </div>
-
-<h1>ItemPage</h1>
-<button @click="addToBasket">добавить в корзину</button>
 </template>
   
 <script>
@@ -88,7 +101,7 @@ export default {
             })
             .catch(() => {
             });
-            return result
+            return result.length
         },
         async  get_items() { 
             const result = await axios
@@ -102,6 +115,7 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
+            this.cart_length++;
             axios.post('/api/add-to-cart', {'item_id': this.item.item.id}, getConfig('application/json'))
             .then(result => result.data);
         }

@@ -17,10 +17,12 @@ const routes =[
     { path: '/:pathMatch(.*)*', component: NotFound },
     {
         path:'/',
+        name:'Main',
         component: MainPage,
     },
     {
         path:'/contacts',
+        name:'Contacts',
         component: ContactsPage,
     },
     {
@@ -39,6 +41,7 @@ const routes =[
     },
     {
         path:'/items',
+        name:'Items',
         component: ItemsPage,
         query: {
             query: '',
@@ -46,6 +49,7 @@ const routes =[
     },
     {
         path:'/cart',
+        name:'Basket',
         component: BasketPage,
     },
 ]

@@ -1,16 +1,16 @@
 <template>
     <header>
       <div class="first">
-        <img src="@/assets/flogo.png" height="67" width="229" alt="logo">
-        <button><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></button>
+        <router-link :to="{ name: 'Main' }"><img src="@/assets/flogo.png" height="67" width="229" alt="logo"></router-link>
+        <router-link :to="{ name: 'Items' }"><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></router-link>
       </div>
       <div class="middle">
         <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
-        <button><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></button>
+        <router-link :to="{ name: 'Contacts' }"><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></router-link>
       </div>
       <div class="last">
-        <p>0</p>
-        <button><img src="@/assets/cart.png" width="30" height="30" alt=""></button>
+        <p>{{this.array.items.length}}</p>
+        <router-link :to="{ name: 'Basket' }"><img src="@/assets/cart.png" width="30" height="30" alt=""></router-link>
       </div>
     </header>
     <section class="cart_content">
@@ -18,16 +18,20 @@
             <h1>Оформление заказа</h1>
             <img src="@/assets/flogo.png" height="60" width="201"  alt="">
         </div>
+        <button @click="deleteAllItems">очистить корзину</button>
         <div class="cart_content_body">
             <div class="cart_content_item">
                 <span>{{this.array.items.length}}</span>
-                <div v-for="item in array.items" v-bind:key="item" :id="item.id">
+                <div v-for="item in array.items" v-bind:key="item" :id="item.id"  class="basket_item">
                     <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="153" height="168" alt="">
-                    <p>{{item.name}}</p>
                     <div>
-                        <p>Количество</p>
-                        <input type="text" name="" id="">
-                        <span>kg</span>
+                        <p>{{item.name}}</p>
+                        <div>
+                            <p>Количество</p>
+                            <input type="text" name="" id="">
+                            <span>kg</span>
+                            <button @click="deliteItem(item.id)">убать товар из корзины</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,7 +48,7 @@
     </section>
     <footer class="min_footer">
       <img src="@/assets/flogo.png" height="60" width="201"  alt="">
-      <p>made by DigitalSolution</p>
+      <p>© 2023-2024</p>
     </footer>
 
 
@@ -115,8 +119,10 @@ export default {
                   'api/delete-from-cart', { 'item_id':id }, getConfig('application/json')
               ).then(data =>{
                 if(data.data.result){
-                  let child = document.getElementById(id);
-                  child.parentElement.remove();
+                    const index = this.array.items.findIndex(item => item.id === id);
+                    if (index !== -1) {
+                        this.array.items.splice(index, 1);
+                    }
                 }
               })
         },
@@ -125,10 +131,7 @@ export default {
                   'api/flush-cart',{}, getConfig('application/json')
               ).then(data =>{
                 if(data.data.result){
-                    let childs = document.getElementsByClassName('basket_item');
-                    Array.from(childs).forEach(child => {
-                        child.remove();
-                    });
+                    this.array.items = [];
                 }
               })
         },

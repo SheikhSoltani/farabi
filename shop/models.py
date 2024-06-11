@@ -55,7 +55,7 @@ class Item(models.Model):
             composition=info_dict['composition'],
             method_of_use=info_dict['method_of_use'],
             expense=info_dict['expense'],
-            flammable=bool(info_dict['flammable']),
+            flammable=json.loads(info_dict['flammable']),
             traits=info_dict['traits']
         )
         for price in price_objects:
