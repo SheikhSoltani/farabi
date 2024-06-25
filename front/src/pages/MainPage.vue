@@ -45,13 +45,13 @@
       <section class="second_section">
         <h1>ПОПУЛЯРНЫЕ ТОВАРЫ</h1>
         <div>
-          <div>
-            <img :src="this.array.items[0].image" alt="">
-            <h1>{{this.array.items[0].name}}</h1>
-            <button @click="addToBasket(this.array.items[0].id)">в корзину</button>
-            <router-link :to="{ name: 'Item', params: { slug: this.array.items[0].slug } }">страница товара</router-link>
+          <div v-for="item in this.array.items" :key="item.id">
+            <img :src="item.image" alt="">
+            <h1>{{item.name}}</h1>
+            <button @click="addToBasket(item.id)">в корзину</button>
+            <router-link :to="{ name: 'Item', params: { slug: item.slug } }">страница товара</router-link>
           </div>
-          <div>
+          <!-- <div>
             <img :src="this.array.items[1].image" alt="">
             <h1>{{this.array.items[1].name}}</h1>
             <button @click="addToBasket(this.array.items[1].id)">в корзину</button>
@@ -68,7 +68,7 @@
             <h1>{{this.array.items[3].name}}</h1>
             <button @click="addToBasket(this.array.items[3].id)">в корзину</button>
             <router-link :to="{ name: 'Item', params: { slug: this.array.items[3].slug } }">страница товара</router-link>
-          </div>
+          </div> -->
         </div>
         <router-link :to="{ name: 'Items' }">СМОТРЕТЬ ЕЩЕ</router-link>
       </section>
