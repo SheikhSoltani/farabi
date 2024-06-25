@@ -4,8 +4,10 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from shop.models import Tag, Item
+from shop.serializers import ItemSerializer
 from .services import authenticate_user, logged_or_not
 
 import logging
@@ -75,12 +77,15 @@ def add_item(request):
     try:
         Item.create_item(request.data)
     except Exception as e:
+        print(e)
         return Response({
             'result': False
         })
     return Response({
         'result': True
     })
+
+
 
 
 @api_view(['PATCH'])

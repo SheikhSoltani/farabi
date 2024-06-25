@@ -305,8 +305,9 @@
                 data.append('flammable', JSON.parse(this.flammable));
                 data.append('traits', this.traits);
                 data.append('price_array', JSON.stringify(this.price_array));
-                console.log(data)
-                axios.post('farabi-admin/create-item',data , getConfig('multipart/form-data')
+                for (const value of data.values()) {
+                  console.log(value);
+}                axios.post('farabi-admin/create-item',data , getConfig('multipart/form-data')
                 )
             }
         },
@@ -396,7 +397,7 @@
                 let data = new FormData();
                 let input = document.querySelector('#avatar');
                 if(input.files[0]===undefined){
-                    data.append('image', this.image.replace("/media",""));
+                    data.append('image', '')
                 }else{
                     data.append('image', input.files[0]);
                 }
