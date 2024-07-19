@@ -14,7 +14,6 @@ class Cart(object):
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
-            # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
@@ -54,15 +53,10 @@ class Cart(object):
         product_ids = self.cart.keys()
         # получение объектов product и добавление их в корзину
         products = Item.objects.filter(id__in=product_ids)
-        # print(products)
         for product in products:
-            # print(product)
             self.cart[str(product.id)]['product'] = product
 
-        print(self.cart.values())
-
         for item in self.cart.values():
-            print(item)
             yield ItemSerializer(item['product']).data
 
     def len(self):
