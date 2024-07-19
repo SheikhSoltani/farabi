@@ -115,14 +115,17 @@ export default {
             });
             return result
         },
-        addToBasket(event){
-            event.preventDefault();
-            const result =axios.post('/api/add-to-cart', {'item_id': this.item.item.id}, getConfig('application/json'))
-            .then((res) => {
-                return res.data;
-            });
-            this.cart_length=result.length;
-        }
+        async addToBasket(itemId) {
+            try {
+                const result =await axios.post('/api/add-to-cart', { 'item_id': itemId }, getConfig('application/json')).then((res) => {
+                    return res.data;
+                });
+                console.log('Item added to basket');
+                this.cart_length=result.length;
+            } catch (error) {
+                console.error('Error adding item to basket:', error);
+            }
+        },
     },
     async mounted() {
         setTimeout(async ()=>{
