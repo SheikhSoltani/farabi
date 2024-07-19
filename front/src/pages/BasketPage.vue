@@ -23,7 +23,7 @@
             <div class="cart_content_item">
                 <span>{{this.array.items.length}}</span>
                 <div v-for="item in array.items" :key="item.id" :id="item.id" class="basket_item">
-                    <img :src="this.url2+this.url+(item.image ? item.image.replace('/', '') : '')" width="153" height="168" alt="">
+                    <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="153" height="168" alt="">
                     <div>
                         <p>{{item.name}}</p>
                         <div>
