@@ -114,6 +114,7 @@ export default {
     return {
       cart_length:0,
       query:'',
+      url:null,
       url2:url,
       array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
     }
@@ -154,6 +155,7 @@ export default {
     },
   },
   async mounted() {
+    this.url=url;
       setTimeout(async ()=>{
             let arr =await this.get_items()
             this.array = arr;
