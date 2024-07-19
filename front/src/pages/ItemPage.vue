@@ -74,7 +74,7 @@
 import axios from '@/js/axios.js';
 import {getConfig} from '@/js/cookie.js';
 import router from "@/js/router";
-import url from '@/js/config.js'
+import {url} from '@/js/config.js'
 
 export default {
     name: 'ItemPage',
