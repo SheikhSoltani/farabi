@@ -146,9 +146,12 @@ export default {
     },
     async addToBasket(itemId) {
       try {
-        await axios.post('/api/add-to-cart', { 'item_id': itemId }, getConfig('application/json'));
         console.log('Item added to basket');
-        this.cart_length++;
+        const result =await axios.post('/api/add-to-cart', { 'item_id': itemId }, getConfig('application/json'))
+        .then((res) => {
+            return res.data;
+        });
+        this.cart_length=result.length;
       } catch (error) {
         console.error('Error adding item to basket:', error);
       }
