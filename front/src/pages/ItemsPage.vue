@@ -21,7 +21,7 @@
             <div class="items_content_body">
                 <div class="items_content_item">
                     <div v-for="item,index in array.items" :key="item">
-                        <img :src="url+item.image" width="153" height="168" alt="">
+                        <img :src="this.url2+item.image" width="153" height="168" alt="">
                         <div>
                             <p>{{this.array.items[index].name}}</p>
                             <div>
@@ -77,6 +77,7 @@ export default {
         array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
         tags:{tags:[{id:0,name:''}]},
         url:null,
+        url2:url,
         query:'',
         selectTag:'',
         cart_length:0

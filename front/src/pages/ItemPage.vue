@@ -19,7 +19,7 @@
                 <h1>{{this.item.item.name}}</h1>
             </div>
             <div class="item_content_body">
-                <img :src="url+this.item.item.image" width="300" height="300" alt="">
+                <img :src="this.url+this.item.item.image" width="300" height="300" alt="">
                 <p v-if="this.item.item.description"> Описание: {{ this.item.item.description }}</p>
                 <p v-if="this.item.item.purpose"> Назначение: {{ this.item.item.purpose }}</p>
                 <p v-if="this.item.item.color"> Цвет: {{ this.item.item.color }}</p>
@@ -86,7 +86,8 @@ export default {
         return{
           item:{item:{image:'', slug:'s',name:''}}
           ,
-        cart_length:0
+        cart_length:0,
+        url:url
         }
     },
     methods:{
