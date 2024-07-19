@@ -28,7 +28,6 @@ def index(request):
 def single_item(request):
     item = get_object_or_404(Item, slug=request.GET.get('slug'))
     aboba = ItemSerializer(item, many=False).data
-    print(aboba)
     return Response({
         'item': aboba
     })

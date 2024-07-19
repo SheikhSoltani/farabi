@@ -77,7 +77,6 @@ def add_item(request):
     try:
         Item.create_item(request.data)
     except Exception as e:
-        print(e)
         return Response({
             'result': False
         })
@@ -92,7 +91,6 @@ def add_item(request):
 @csrf_exempt
 def edit_item(request):
     Item.edit_item(request.data)
-    print(request.data)
     return Response({
         'result': True
     })
