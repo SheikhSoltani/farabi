@@ -51,7 +51,7 @@
 
 <script>
 import { url } from '@/js/config.js';
-import axios from 'axios';
+import axios from '@/js/axios.js';
 import { getConfig } from '@/js/cookie.js';
 import router from "@/js/router";
 

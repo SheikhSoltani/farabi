@@ -44,7 +44,7 @@
 </template>
   
 <script>
-import axios from 'axios';
+import axios from '@/js/axios.js';
 import router from "@/js/router";
 
 export default {

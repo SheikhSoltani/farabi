@@ -69,7 +69,7 @@
 <script>
 import {url} from '@/js/config.js';
 import {getConfig} from '@/js/cookie.js';
-import axios from 'axios';
+import axios from '@/js/axios.js';
 export default {
     name: 'ItemsPage',
     data() {
