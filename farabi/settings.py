@@ -42,6 +42,14 @@ CORS_ORIGINS_WHITELIST = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","http
 CORS_ALLOWED_ORIGINS =["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 # Application definition
 
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'x-requested-with',
+    'access-control-allow-origin',  # Add this header
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
