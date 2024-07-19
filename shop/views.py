@@ -77,7 +77,7 @@ def add_to_cart(request):
     item = get_object_or_404(Item, id=request.data['item_id'])
     cart.add(item)
     return Response({
-        'result': True
+        'result': True, 'length': cart.len()
     })
 
 
@@ -86,7 +86,7 @@ def delete_from_cart(request):
     cart = Cart(request)
     cart.remove(get_object_or_404(Item, id=request.data['item_id']))
     return Response({
-        'result': True
+        'result': True, 'length': cart.len()
     })
 
 
