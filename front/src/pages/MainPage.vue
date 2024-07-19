@@ -102,10 +102,10 @@
 </template>
   
 <script>
-import axios from '@/js/axios.js';
+import {url} from '@/js/config.js';
 import {getConfig} from '@/js/cookie.js';
+import axios from '@/js/axios.js';
 import router from "@/js/router";
-import url from '@/js/config.js'
 
 
 export default {
@@ -156,6 +156,9 @@ export default {
   },
   async mounted() {
     this.url=url;
+    console.log(url)
+    console.log(this.url)
+    console.log(this.url2)
       setTimeout(async ()=>{
             let arr =await this.get_items()
             this.array = arr;

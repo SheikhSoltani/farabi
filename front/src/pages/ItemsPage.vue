@@ -148,6 +148,9 @@ export default {
     },
     async mounted() {
         this.url=url;
+        console.log(url)
+        console.log(this.url)
+        console.log(this.url2)
         if(this.$route.query.query){
             this.query=this.$route.query.query;
         }
