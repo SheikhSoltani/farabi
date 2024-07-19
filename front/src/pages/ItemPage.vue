@@ -117,7 +117,7 @@ export default {
         },
         async addToBasket(itemId) {
             try {
-                const result =await axios.post('/api/add-to-cart', { 'item_id': itemId }, getConfig('application/json')).then((res) => {
+                const result =await axios.post('/api/add-to-cart', { 'item_id': this.item.item.id }, getConfig('application/json')).then((res) => {
                     return res.data;
                 });
                 console.log('Item added to basket');
