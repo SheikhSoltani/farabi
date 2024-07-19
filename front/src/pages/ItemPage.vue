@@ -117,9 +117,11 @@ export default {
         },
         addToBasket(event){
             event.preventDefault();
-            this.cart_length++;
-            axios.post('/api/add-to-cart', {'item_id': this.item.item.id}, getConfig('application/json'))
-            .then(result => result.data);
+            const result =axios.post('/api/add-to-cart', {'item_id': this.item.item.id}, getConfig('application/json'))
+            .then((res) => {
+                return res.data;
+            });
+            this.cart_length=result.length;
         }
     },
     async mounted() {
