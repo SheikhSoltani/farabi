@@ -46,7 +46,7 @@
         <h1>ПОПУЛЯРНЫЕ ТОВАРЫ</h1>
         <div>
           <div v-for="item in this.array.items" :key="item.id">
-            <img :src="this.url+item.image" alt="">
+            <img :src="this.url2+item.image" alt="">
             <h1>{{item.name}}</h1>
             <button @click="addToBasket(item.id)">в корзину</button>
             <router-link :to="{ name: 'Item', params: { slug: item.slug } }">страница товара</router-link>
@@ -114,7 +114,7 @@ export default {
     return {
       cart_length:0,
       query:'',
-      url:null,
+      url2:url,
       array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
     }
   },
@@ -155,8 +155,6 @@ export default {
   },
   async mounted() {
       setTimeout(async ()=>{
-            this.url = url;
-            console.log(this.url);
             let arr =await this.get_items()
             this.array = arr;
             this.cart_length =await this.get_cart_length()
