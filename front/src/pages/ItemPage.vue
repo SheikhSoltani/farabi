@@ -19,7 +19,7 @@
                 <h1>{{this.item.item.name}}</h1>
             </div>
             <div class="item_content_body">
-                <img :src="this.item.item.image" width="300" height="300" alt="">
+                <img :src="url+this.item.item.image" width="300" height="300" alt="">
                 <p v-if="this.item.item.description"> Описание: {{ this.item.item.description }}</p>
                 <p v-if="this.item.item.purpose"> Назначение: {{ this.item.item.purpose }}</p>
                 <p v-if="this.item.item.color"> Цвет: {{ this.item.item.color }}</p>
@@ -74,6 +74,7 @@
 import axios from '@/js/axios.js';
 import {getConfig} from '@/js/cookie.js';
 import router from "@/js/router";
+import url from '@/js/config.js'
 
 export default {
     name: 'ItemPage',

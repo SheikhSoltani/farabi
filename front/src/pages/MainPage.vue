@@ -46,7 +46,7 @@
         <h1>ПОПУЛЯРНЫЕ ТОВАРЫ</h1>
         <div>
           <div v-for="item in this.array.items" :key="item.id">
-            <img :src="item.image" alt="">
+            <img :src="url+item.image" alt="">
             <h1>{{item.name}}</h1>
             <button @click="addToBasket(item.id)">в корзину</button>
             <router-link :to="{ name: 'Item', params: { slug: item.slug } }">страница товара</router-link>
@@ -105,6 +105,7 @@
 import axios from '@/js/axios.js';
 import {getConfig} from '@/js/cookie.js';
 import router from "@/js/router";
+import url from '@/js/config.js'
 
 
 export default {

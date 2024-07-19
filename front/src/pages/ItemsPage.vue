@@ -21,7 +21,7 @@
             <div class="items_content_body">
                 <div class="items_content_item">
                     <div v-for="item,index in array.items" :key="item">
-                        <img :src="item.image" width="153" height="168" alt="">
+                        <img :src="url+item.image" width="153" height="168" alt="">
                         <div>
                             <p>{{this.array.items[index].name}}</p>
                             <div>
