@@ -39,7 +39,7 @@ def items(request):
     query = request.GET.get('q', '')
     tag = request.GET.get('tag', '')
     if query:
-        items_query = items_query.filter(name__contains=query)
+        items_query = items_query.filter(name__icontains=query)
     if tag:
         items_query = items_query.filter(tag__name__contains=tag)
     return Response({
