@@ -124,6 +124,6 @@ class Tag(models.Model):
 
     @staticmethod
     def delete_tag(info_dict):
-        tag = get_object_or_404(Tag, name=info_dict['tag_name'])
+        tag = Tag.objects.filter(name=info_dict['tag_name']).first()
         tag.delete()
         return True
