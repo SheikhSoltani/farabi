@@ -35,7 +35,6 @@ def log_in(request):
         })
 
 
-@csrf_exempt
 @api_view(['POST'])
 def log_out(request):
     logout(request)
