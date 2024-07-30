@@ -46,16 +46,11 @@ CORS_ALLOWED_ORIGINS =["http://127.0.0.1:8000", "http://127.0.0.1:8080","https:/
 # Application definition
 
 CORS_ALLOW_HEADERS = [
-'accept',
-'accept-encoding',
-'authorization',
-'content-type',
-'dnt',
-'origin',
-'user-agent',
-'x-csrftoken',
-'X-CSRFToken',
-'x-requested-with',
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'x-requested-with',
+    'access-control-allow-origin',  # Add this header
 ]
 
 INSTALLED_APPS = [
