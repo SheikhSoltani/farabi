@@ -14,6 +14,7 @@ function getCookie(name) {
   return cookieValue;
 }
     export function getConfig(t) {
+    console.log(getCookie('csrftoken'), "WQEWEEWQ")
      const config = {
         headers: {
         'Content-Type': t,
