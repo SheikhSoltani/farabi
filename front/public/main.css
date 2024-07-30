@@ -624,6 +624,7 @@ font-size: 40px;font-weight: 800;
     justify-content: space-between;
     border-radius: 25px 0 0 25px;
     overflow: hidden;
+    height: fit-content;
     margin: 20px;
 }
 .items_content_item>div>div{
@@ -668,7 +669,7 @@ font-size: 40px;font-weight: 800;
     padding:50px 180px;
 }
 .item_content>div>h1{
-    margin:0 0 40px;
+    margin:0 10% 40px;
     font-size: 40px;
     font-weight: 800;
 }
