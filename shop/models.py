@@ -66,7 +66,6 @@ class Item(models.Model):
             Price.objects.get(id=price_unit['id']).change_data(price_unit)
 
         item.name = info_dict['name']
-        print(info_dict)
         if info_dict['image']:
             item.image = info_dict['image']
         item.description = info_dict['description']
