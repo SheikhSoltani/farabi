@@ -15,12 +15,11 @@ function getCookie(name) {
 }
     export function getConfig(t) {
     console.log(getCookie('csrftoken'), "WQEWEEWQ")
-     const config = {
+        return {
         headers: {
-        'Content-Type': t,
-        'Access-Control-Allow-Origin': '*',
-        // 'X-CSRFToken': getCookie('csrftoken')
+            'Content-Type': t,
+            'Access-Control-Allow-Origin': '*',
+            'X-CSRFToken': getCookie('csrftoken')
         }
     };
-    return config;
 }
