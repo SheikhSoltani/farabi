@@ -1,6 +1,6 @@
 function getCookie(name) {
   let cookieValue = null;
-  console.log('CALLED COOKIE GETTER')
+  console.log('CALLED COOKIE GETTER  ' + document.cookie + "doc " + document)
   if (document.cookie && document.cookie !== '') {
       console.log('IN FIRST IF')
     const cookies = document.cookie.split(';');
