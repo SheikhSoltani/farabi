@@ -14,6 +14,7 @@ import logging
 logger = logging.getLogger('django')
 
 
+@csrf_exempt
 @api_view(['POST'])
 def log_in(request):
     """ Process of login in  """
@@ -34,6 +35,7 @@ def log_in(request):
         })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def log_out(request):
     logout(request)
@@ -42,6 +44,7 @@ def log_out(request):
     })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def add_tag(request):
     Tag.create_tag(request.data)
@@ -50,6 +53,7 @@ def add_tag(request):
     })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def delete_tag(request):
     Tag.delete_tag(request.data)
@@ -58,6 +62,7 @@ def delete_tag(request):
     })
 
 
+@csrf_exempt
 @api_view(['PATCH'])
 def edit_tag(request):
     Tag.edit_tag(request.data)
@@ -66,6 +71,7 @@ def edit_tag(request):
     })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def add_item(request):
     try:
@@ -81,6 +87,7 @@ def add_item(request):
 
 
 
+@csrf_exempt
 @api_view(['PATCH'])
 def edit_item(request):
     Item.edit_item(request.data)
@@ -89,6 +96,7 @@ def edit_item(request):
     })
 
 
+@csrf_exempt
 @api_view(['POST'])
 def delete_item(request):
     Item.delete_item(request.data)
@@ -97,6 +105,7 @@ def delete_item(request):
     })
 
 
+@csrf_exempt
 @api_view(['GET'])
 def logged(request: WSGIRequest):
     result = logged_or_not(request)
