@@ -39,7 +39,7 @@ some_data = True
 # CSRF_USE_SESSIONS = False
 CORS_ALLOW_CREDENTIALS=True
 CSRF_COOKIE_SECURE = True
-
+CSRF_COOKIE_HTTPONLY = False
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 CSRF_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 CORS_ORIGINS_WHITELIST = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
