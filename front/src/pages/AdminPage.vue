@@ -307,14 +307,14 @@
                 data.append('price_array', JSON.stringify(this.price_array));
                 for (const value of data.values()) {
                   console.log(value);
-}                axios.post('create-item',data , getConfig('multipart/form-data')
+}                axios.post('farabi-admin/create-item',data , getConfig('multipart/form-data')
                 )
             }
         },
         addCategory (event) {
             if(this.CanSendTag()){
                 event.preventDefault();
-                axios.post('create-tag', {'tag_name': this.category_name}, getConfig('application/json'))
+                axios.post('farabi-admin/create-tag', {'tag_name': this.category_name}, getConfig('application/json'))
                 .then(result => result.data);
                 setTimeout(async ()=>{
                     let arr2 =await this.get_tags()
@@ -359,7 +359,7 @@
         },
         deleteTag(tag_name){
             axios.post(
-                'delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
+                'farabi-admin/delete-tag', { 'tag_name': tag_name }, getConfig('application/json')
             ).then(data =>{
             if(data.data.result){
                 let child = document.getElementById(tag_name);
@@ -370,7 +370,7 @@
         deleteItem(item_id){
             
             axios.post(
-                'delete-item', { 'id': item_id }, getConfig('application/json')
+                'farabi-admin/delete-item', { 'id': item_id }, getConfig('application/json')
             ).then(data =>{
             if(data.data.result){
                 let child = document.getElementById(item_id);
@@ -381,7 +381,7 @@
         editTag(tag_name,tag_new_name){
             if(this.CanSendTag()){
                 axios.patch(
-                    'edit-tag', { 'tag_name': tag_name,'tag_new_name':tag_new_name }, getConfig('application/json')
+                    'farabi-admin/edit-tag', { 'tag_name': tag_name,'tag_new_name':tag_new_name }, getConfig('application/json')
                 ).then(() =>{
                     for(let i in this.array_tags.tags){
                         if(this.array_tags.tags[i].name===tag_name){
@@ -417,7 +417,7 @@
                 data.append('traits', this.traits);
                 data.append('price_array', JSON.stringify(this.price_array));
                 console.log(data)
-                axios.patch('edit-item',data , getConfig('multipart/form-data'))
+                axios.patch('farabi-admin/edit-item',data , getConfig('multipart/form-data'))
             }
         },
         async  get_items() { 
