@@ -15,7 +15,6 @@ logger = logging.getLogger('django')
 
 
 @api_view(['POST'])
-@csrf_exempt
 def log_in(request):
     """ Process of login in  """
     logger.info(request.data)
@@ -36,7 +35,6 @@ def log_in(request):
 
 
 @api_view(['POST'])
-@csrf_exempt
 def log_out(request):
     logout(request)
     return Response({
@@ -45,7 +43,6 @@ def log_out(request):
 
 
 @api_view(['POST'])
-@csrf_exempt
 def add_tag(request):
     Tag.create_tag(request.data)
     return Response({
@@ -54,7 +51,6 @@ def add_tag(request):
 
 
 @api_view(['POST'])
-@csrf_exempt
 def delete_tag(request):
     Tag.delete_tag(request.data)
     return Response({
@@ -63,7 +59,6 @@ def delete_tag(request):
 
 
 @api_view(['PATCH'])
-@csrf_exempt
 def edit_tag(request):
     Tag.edit_tag(request.data)
     return Response({
@@ -72,7 +67,6 @@ def edit_tag(request):
 
 
 @api_view(['POST'])
-@csrf_exempt
 def add_item(request):
     try:
         Item.create_item(request.data)
@@ -88,7 +82,6 @@ def add_item(request):
 
 
 @api_view(['PATCH'])
-@csrf_exempt
 def edit_item(request):
     Item.edit_item(request.data)
     return Response({
@@ -97,7 +90,6 @@ def edit_item(request):
 
 
 @api_view(['POST'])
-@csrf_exempt
 def delete_item(request):
     Item.delete_item(request.data)
     return Response({
