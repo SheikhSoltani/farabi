@@ -203,7 +203,7 @@
     name: 'AdminPage',
     methods: {
         logOut () {
-            axios.post('farabi-admin/logout',{} ,getConfig('application/json'));
+            axios.post('/farabi-admin/logout',{} ,getConfig('application/json'));
             setTimeout(()=>{router.push({path: '/login'})}, 200);
             
         },

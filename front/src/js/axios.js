@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://api.idealf.kz/',
+  baseURL: 'https://api.idealf.kz',
   withCredentials: true,
 });
 
