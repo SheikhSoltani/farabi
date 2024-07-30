@@ -28,8 +28,8 @@
                 <p v-if="this.item.item.expiration_date"> Срок годности: {{ this.item.item.expiration_date }}</p>
                 <p v-if="this.item.item.composition"> Состав: {{ this.item.item.composition }}</p>
                 <p v-if="this.item.item.method_of_use"> Метод использования: {{ this.item.item.method_of_use }}</p>
-                <p v-if="this.item.item.expense"> ---: {{ this.item.item.expense }}</p>
-                <p v-if="this.item.item.flammable"> Огнеопасный!</p>
+                <p v-if="this.item.item.expense"> Расход: {{ this.item.item.expense }}</p>
+                <!-- <p v-if="this.item.item.flammable"> Огнеопасный!</p> -->
                 <p v-if="this.item.item.traits===true"> Особенность: {{ this.item.item.traits }}</p>
                 <button @click="addToBasket">Добавить в корзину</button>
             </div>
