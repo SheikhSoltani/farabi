@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from corsheaders.defaults import default_headers
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -41,22 +43,19 @@ SESSION_COOKIE_SAMESITE = False
 CORS_ALLOW_CREDENTIALS=True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_DOMAIN = ".idealf.kz"
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 CSRF_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
-CORS_ORIGINS_WHITELIST = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
-CORS_ALLOWED_ORIGINS =["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 # Application definition
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
-CORS_ALLOW_HEADERS = [
-    'content-type',
-    'authorization',
-    'x-csrftoken',
-    'x-requested-with',
-    'access-control-allow-origin',  # Add this header
+CORS_ALLOW_HEADERS = list(default_headers) + [
+     'Access-Control-Allow-Origin',
 ]
 
 INSTALLED_APPS = [
