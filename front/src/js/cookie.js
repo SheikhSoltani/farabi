@@ -18,7 +18,7 @@ function getCookie(name) {
         headers: {
         'Content-Type': t,
         'Access-Control-Allow-Origin': '*',
-        'X-CSRFTOKEN': getCookie('csrftoken')
+        'X-CSRFToken': getCookie('csrftoken')
         }
     };
     return config;
