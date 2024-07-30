@@ -38,7 +38,6 @@ some_data = True
 # CSRF_COOKIE_SECURE = False
 # CSRF_USE_SESSIONS = False
 CORS_ALLOW_CREDENTIALS=True
-CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
 CSRF_ALLOWED_ORIGINS = ["http://127.0.0.1:8000", "http://127.0.0.1:8080","https://api.idealf.kz","https://idealf.kz"]
@@ -47,11 +46,16 @@ CORS_ALLOWED_ORIGINS =["http://127.0.0.1:8000", "http://127.0.0.1:8080","https:/
 # Application definition
 
 CORS_ALLOW_HEADERS = [
-    'content-type',
-    'authorization',
-    'x-csrftoken',
-    'x-requested-with',
-    'access-control-allow-origin',  # Add this header
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'X-CSRFToken',
+'x-requested-with',
 ]
 
 INSTALLED_APPS = [
