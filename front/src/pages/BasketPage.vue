@@ -30,7 +30,7 @@
                             <p>Количество</p>
                             <input type="number" v-model.number="item.quantity" min="1">
                             <span>kg</span>
-                            <button @click="deliteItem(item.id)">убать товар из корзины</button>
+                            <button @click="deliteItem(item.id)">убрать товар из корзины</button>
                         </div>
                     </div>
                 </div>

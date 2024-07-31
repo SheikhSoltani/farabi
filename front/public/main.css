@@ -643,6 +643,14 @@ font-size: 40px;font-weight: 800;
     padding: 8px;
     height: 150px;
 }
+.items_content_item>div>div>p{
+    width: 200px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .items_content_item>div>div>div{
     display: flex;
     flex-direction: column;
