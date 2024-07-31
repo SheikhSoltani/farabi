@@ -342,6 +342,14 @@ footer>p{
     width: 270px;border-radius: 91px;
     height: 300px;
 }
+.second_section>div>div>h1{
+    text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .second_section>div>div>button{
     border-radius: 5px;
     border: none;
