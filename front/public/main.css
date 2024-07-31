@@ -650,6 +650,7 @@ font-size: 40px;font-weight: 800;
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 .items_content_item>div>div>div{
     display: flex;
