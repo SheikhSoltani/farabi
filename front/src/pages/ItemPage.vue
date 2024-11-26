@@ -42,31 +42,31 @@
                 </div>
             </div>
         </section>
-        <footer>
-            <div class="footer_first">
-                <h1>Контакты</h1>
-                <div>
-                <img src="" alt="">
-                <p>Алматы Рыскулова, 92а</p>
-                </div>
-                <div>
-                <img src="" alt="">
-                <p>+7(747)855-10-75 +7(708)807-00-18 +7(701)360-93-93</p>
-                </div>
-                <div>
-                <img src="" alt="">
-                <p>+7(727)294-23-30</p>
-                </div>
-                <div>
-                <img src="" alt="">
-                <p>buhfarabiklei@mail.ru</p>
-                </div>
-            </div>
-            <div class="footer_middle"><div style="position:relative;overflow:hidden;"><a href="https://yandex.kz/maps/162/almaty/?utm_medium=mapframe&utm_source=maps" style="display: none;color:#eee;font-size:12px;position:absolute;top:0px;">Алматы</a><a href="https://yandex.kz/maps/162/almaty/house/Y08YfwdnQEUAQFppfX52eH5hZg==/?ll=76.907887%2C43.279144&utm_medium=mapframe&utm_source=maps&z=17.15" style="color:#eee;font-size:12px;position:absolute;top:14px;">Проспект Рыскулова, 92А — Яндекс Карты</a><iframe src="https://yandex.kz/map-widget/v1/?ll=76.907887%2C43.279144&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg2NzMxMTY5NBJH0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINCg0YvRgdKb0rHQu9C-0LIg0LTQsNKj0pPRi9C70YssIDky0JAiCg3Z0JlCFewdLUI%2C&z=17.15" width="530" height="250" frameborder="1" allowfullscreen="true" style="position:relative;border:none;border-radius: 15px;"></iframe></div></div>
-            
-            <img src="@/assets/flogo.png" height="60" width="201"  alt="">
-            <p>© 2023-2024</p>
-        </footer>
+    <footer>
+      <div class="footer_first">
+        <h1>Контакты</h1>
+        <div>
+          <img src="" alt="">
+          <p>Алматы Рыскулова, 92а</p>
+        </div>
+        <div>
+          <img src="" alt="">
+          <p>+7(747)855-10-75 +7(708)807-00-18 +7(701)360-93-93</p>
+        </div>
+        <div>
+          <img src="" alt="">
+          <p>+7(727)294-23-30</p>
+        </div>
+        <div>
+          <img src="" alt="">
+          <p>buhfarabiklei@mail.ru</p>
+        </div>
+      </div>
+      <div class="footer_middle"><div style="position:relative;overflow:hidden;"><a href="https://yandex.kz/maps/162/almaty/?utm_medium=mapframe&utm_source=maps" style="display: none;color:#eee;font-size:12px;position:absolute;top:0px;">Алматы</a><a href="https://yandex.kz/maps/162/almaty/house/Y08YfwdnQEUAQFppfX52eH5hZg==/?ll=76.907887%2C43.279144&utm_medium=mapframe&utm_source=maps&z=17.15" style="color:#eee;font-size:12px;position:absolute;top:14px;">Проспект Рыскулова, 92А — Яндекс Карты</a><iframe src="https://yandex.kz/map-widget/v1/?ll=76.907887%2C43.279144&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg2NzMxMTY5NBJH0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINCg0YvRgdKb0rHQu9C-0LIg0LTQsNKj0pPRi9C70YssIDky0JAiCg3Z0JlCFewdLUI%2C&z=17.15" :width="mapwidth" :height="mapheight" frameborder="1" allowfullscreen="true" style="position:relative;border:none;border-radius: 15px;"></iframe></div></div>
+      
+      <img src="@/assets/flogo.png" :height="imgheight" :width="imgwidth"  alt="">
+      <p>© 2023-2024</p>
+    </footer>
     </div>
 </template>
   
@@ -84,10 +84,14 @@ export default {
     },
     data(){
         return{
-          item:{item:{image:'', slug:'s',name:''}}
-          ,
-        cart_length:0,
-        url:url
+            item:{item:{image:'', slug:'s',name:''}},
+            cart_length:0,
+            url:url,
+            isMobile: false, // Проверка мобильного устройства
+            mapwidth:530,
+            mapheight:250,
+            imgwidth:201,
+            imgheight:60
         }
     },
     methods:{
@@ -134,6 +138,29 @@ export default {
             console.log(this.item);
             console.log(this.cart_length);
         }, 100);
+
+        // Установка адаптивности
+        this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+        const handleResize = () => {
+            this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+        };
+        window.addEventListener('resize', handleResize);
+        if(this.isMobile){
+            this.mapwidth=230
+            this.imgwidth=100
+            this.imgheight=30
+        }
+        // Убираем слушатель события при уничтожении компонента
+        this.$watch(
+            () => this.$el,
+            (newValue) => {
+            if (!newValue) {
+                window.removeEventListener('resize', handleResize);
+            }
+            }
+        );
+
+
     },
 }
 </script>

@@ -23,7 +23,7 @@
             <div class="cart_content_item">
                 <span>{{this.array.items.length}}</span>
                 <div v-for="item in array.items" :key="item.id" :id="item.id" class="basket_item">
-                    <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" width="153" height="168" alt="">
+                    <img :src="this.url+(item.image ? item.image.replace('/', '') : '')" :width="imgwidth" :height="imgheight" alt="">
                     <div>
                         <p>{{item.name}}</p>
                         <div>
@@ -44,7 +44,7 @@
         </div>
     </section>
     <footer class="min_footer">
-        <img src="@/assets/flogo.png" height="60" width="201" alt="">
+        <img src="@/assets/flogo.png" :height="imageheight" :width="imagewidth" alt="">
         <p>© 2023-2024</p>
     </footer>
 </template>
@@ -66,7 +66,12 @@ export default {
             array: { items: [] },  // Change to an array
             comment: '',
             message: '',
-            url2:url
+            url2:url,
+            isMobile: false, // Проверка мобильного устройства
+            imgwidth:153,
+            imgheight:168,
+            imagewidth:200,
+            imageheight:60
         }
     },
     methods: {
@@ -124,6 +129,31 @@ export default {
                 }
             });
         }, 100);
+
+
+        // Установка адаптивности
+        this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+        const handleResize = () => {
+            this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+        };
+        window.addEventListener('resize', handleResize);
+        if(this.isMobile){
+            this.imgwidth=100
+            this.imgheight=90
+            this.imagewidth=100
+            this.imageheight=30
+        }
+        // Убираем слушатель события при уничтожении компонента
+        this.$watch(
+            () => this.$el,
+            (newValue) => {
+            if (!newValue) {
+                window.removeEventListener('resize', handleResize);
+            }
+            }
+        );
+
+
     },
 }
 </script>

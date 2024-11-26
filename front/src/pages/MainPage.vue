@@ -93,9 +93,9 @@
           <p>buhfarabiklei@mail.ru</p>
         </div>
       </div>
-      <div class="footer_middle"><div style="position:relative;overflow:hidden;"><a href="https://yandex.kz/maps/162/almaty/?utm_medium=mapframe&utm_source=maps" style="display: none;color:#eee;font-size:12px;position:absolute;top:0px;">Алматы</a><a href="https://yandex.kz/maps/162/almaty/house/Y08YfwdnQEUAQFppfX52eH5hZg==/?ll=76.907887%2C43.279144&utm_medium=mapframe&utm_source=maps&z=17.15" style="color:#eee;font-size:12px;position:absolute;top:14px;">Проспект Рыскулова, 92А — Яндекс Карты</a><iframe src="https://yandex.kz/map-widget/v1/?ll=76.907887%2C43.279144&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg2NzMxMTY5NBJH0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINCg0YvRgdKb0rHQu9C-0LIg0LTQsNKj0pPRi9C70YssIDky0JAiCg3Z0JlCFewdLUI%2C&z=17.15" width="530" height="250" frameborder="1" allowfullscreen="true" style="position:relative;border:none;border-radius: 15px;"></iframe></div></div>
+      <div class="footer_middle"><div style="position:relative;overflow:hidden;"><a href="https://yandex.kz/maps/162/almaty/?utm_medium=mapframe&utm_source=maps" style="display: none;color:#eee;font-size:12px;position:absolute;top:0px;">Алматы</a><a href="https://yandex.kz/maps/162/almaty/house/Y08YfwdnQEUAQFppfX52eH5hZg==/?ll=76.907887%2C43.279144&utm_medium=mapframe&utm_source=maps&z=17.15" style="color:#eee;font-size:12px;position:absolute;top:14px;">Проспект Рыскулова, 92А — Яндекс Карты</a><iframe src="https://yandex.kz/map-widget/v1/?ll=76.907887%2C43.279144&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg2NzMxMTY5NBJH0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINCg0YvRgdKb0rHQu9C-0LIg0LTQsNKj0pPRi9C70YssIDky0JAiCg3Z0JlCFewdLUI%2C&z=17.15" :width="mapwidth" :height="mapheight" frameborder="1" allowfullscreen="true" style="position:relative;border:none;border-radius: 15px;"></iframe></div></div>
       
-      <img src="@/assets/flogo.png" height="60" width="201"  alt="">
+      <img src="@/assets/flogo.png" :height="imgheight" :width="imgwidth"  alt="">
       <p>© 2023-2024</p>
     </footer>
   </div>
@@ -116,7 +116,12 @@ export default {
       query:'',
       url:null,
       url2:url,
-      array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
+      array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},],},
+      isMobile: false, // Проверка мобильного устройства
+      mapwidth:530,
+      mapheight:250,
+      imgwidth:201,
+      imgheight:60
     }
   },
   methods:{
@@ -170,6 +175,29 @@ export default {
             console.log(this.cart_length);
             //console.log(this.array.items[0].image);
       }, 100);
+
+    
+  // Установка адаптивности
+  this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+  const handleResize = () => {
+    this.isMobile = window.matchMedia('(max-width: 1500px)').matches;
+  };
+  window.addEventListener('resize', handleResize);
+  if(this.isMobile){
+    this.mapwidth=230
+    this.imgwidth=100
+    this.imgheight=30
+  }
+  // Убираем слушатель события при уничтожении компонента
+  this.$watch(
+    () => this.$el,
+    (newValue) => {
+      if (!newValue) {
+        window.removeEventListener('resize', handleResize);
+      }
+    }
+  );
+
   },
 }
 </script>
