@@ -81,11 +81,11 @@ export default {
         },
         sendMessage() {
             this.message = `Информация о заказе:\nИмя: ${this.name}\nКомментарий: ${this.comment}\nТовары:\n${this.array.items.map(item => `- ${item.name} (${item.quantity} kg)`).join('\n')}`;
-            
+            let url;
             if(this.isMobile){
-                const url = `https://wa.me/+77088070018?text=${encodeURIComponent(this.message)}`;
+                 url = `https://wa.me/+77088070018?text=${encodeURIComponent(this.message)}`;
             }else{
-                const url = `https://wa.me/87088070018?text=${encodeURIComponent(this.message)}`;
+                 url = `https://wa.me/87088070018?text=${encodeURIComponent(this.message)}`;
             }
             window.open(url, '_blank');
         },
