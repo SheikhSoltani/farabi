@@ -15,7 +15,7 @@
                     <li><router-link to="/items" class="nav-link">Каталог</router-link></li>
                     <li><router-link to="/about" class="nav-link">О компании</router-link></li>
                     <li><router-link to="/contacts" class="nav-link">Контакты</router-link></li>
-                    <li><router-link to="/basket" class="nav-link basket-link">Корзина</router-link></li>
+                    <li><router-link to="/cart" class="nav-link basket-link">Корзина</router-link></li>
                 </ul>
             </nav>
             
@@ -139,6 +139,7 @@ export default {
     border: none;
     cursor: pointer;
     padding: 5px;
+    z-index: 1;
 }
 
 .mobile-menu-btn span {

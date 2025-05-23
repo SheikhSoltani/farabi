@@ -2,7 +2,6 @@
     <section class="cart_content">
         <div class="cart_content_header">
             <h1>Оформление заказа</h1>
-            <img src="@/assets/flogo.png" height="60" width="201" alt="">
         </div>
         <button @click="deleteAllItems">очистить корзину</button>
         <div class="cart_content_body">
