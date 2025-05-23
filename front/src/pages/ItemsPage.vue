@@ -1,19 +1,5 @@
 <template>
     <div>
-        <header>
-        <div class="first">
-            <router-link :to="{ name: 'Main' }"><img src="@/assets/flogo.png" height="67" width="229" alt="logo"></router-link>
-            <router-link :to="{ name: 'Items' }"><div><span></span><span></span><span></span><span></span></div><p>Каталог товаров</p></router-link>
-        </div>
-        <div class="middle">
-            <input type="text" placeholder="Поиск по сайту" v-model="this.query" v-on:keydown.enter="search">
-            <router-link :to="{ name: 'Contacts' }"><img src="@/assets/phone.png" width="15" height="15" alt=""><p>КОНТАКТЫ</p></router-link>
-        </div>
-        <div class="last">
-            <p>{{this.cart_length}}</p>
-            <router-link :to="{ name: 'Basket' }"><img src="@/assets/cart.png" width="30" height="30" alt=""></router-link>
-        </div>
-        </header>
         <section class="items_content">
             <div class="items_content_header">
                 <h1>Каталог товаров</h1>

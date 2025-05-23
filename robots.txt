@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+Allow: /items
+Allow: /about
+Allow: /contacts
+Allow: /item/*
+
+# Запрещаем индексацию административных страниц  
+Disallow: /admin
+Disallow: /login
+Disallow: /api/
+Disallow: /farabi-admin/
+
+# Разрешаем доступ к медиафайлам
+Allow: /media/
+Allow: *.css
+Allow: *.js
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.svg
+
+# Указываем расположение sitemap
+Sitemap: https://idealf.kz/sitemap.xml
+
+# Задержка между запросами (в секундах)
+Crawl-delay: 1

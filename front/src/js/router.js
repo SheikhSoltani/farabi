@@ -7,6 +7,7 @@ import ItemPage from "@/pages/ItemPage";
 import ItemsPage from "@/pages/ItemsPage";
 import BasketPage from "@/pages/BasketPage";
 import ContactsPage from "@/pages/ContactsPage";
+import AboutPage from "@/pages/AboutPage";
 
 const routes =[
     { 
@@ -19,6 +20,10 @@ const routes =[
         path:'/',
         name:'Main',
         component: MainPage,
+    },
+    {
+        path:'/about',
+        component: AboutPage,
     },
     {
         path:'/contacts',
