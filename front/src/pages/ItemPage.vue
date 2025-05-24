@@ -61,7 +61,7 @@ import axios from '@/js/axios.js';
 import {getConfig} from '@/js/cookie.js';
 import router from "@/js/router";
 import {url} from '@/js/config.js'
-
+import { seoMixin } from '@/js/seoMixin.js';
 export default {
     name: 'ItemPage',
   mixins: [seoMixin],

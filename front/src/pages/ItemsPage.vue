@@ -56,6 +56,7 @@
 import {url} from '@/js/config.js';
 import {getConfig} from '@/js/cookie.js';
 import axios from '@/js/axios.js';
+import { seoMixin } from '@/js/seoMixin.js';
 export default {
     name: 'ItemsPage',
   mixins: [seoMixin],

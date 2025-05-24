@@ -32,7 +32,7 @@
 <script>
 import axios from '@/js/axios.js';
 import router from "@/js/router";
-
+import { seoMixin } from '@/js/seoMixin.js';
 export default {
   name: 'ContactsPage',
   mixins: [seoMixin],

@@ -39,7 +39,7 @@ import { url } from '@/js/config.js';
 import axios from '@/js/axios.js';
 import { getConfig } from '@/js/cookie.js';
 import router from "@/js/router";
-
+import { seoMixin } from '@/js/seoMixin.js';
 export default {
     name: 'BasketPage',
   mixins: [seoMixin],
