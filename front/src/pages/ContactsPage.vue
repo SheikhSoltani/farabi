@@ -70,3 +70,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+@media (max-width: 768px) {
+  .footer_middle iframe {
+    width: 250px;
+  }
+}</style>
