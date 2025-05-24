@@ -96,6 +96,7 @@ import router from "@/js/router";
 
 export default {
   name: 'MainPage',
+  mixins: [seoMixin],
   data() {
     return {
       cart_length:0,
@@ -149,6 +150,11 @@ export default {
     },
   },
   async mounted() {
+    this.updateSEO({
+  title: 'Главная - Производство красок и клея с 2002 года',
+  description: 'ТОО "Фараби-Клей" - ведущий производитель красок, водоэмульсии, клея и декоративных покрытий в Казахстане с 2002 года. Качественная продукция, партнерские скидки до 10%.',
+  canonical: 'https://idealf.kz/'
+});
     this.url=url;
     console.log(url)
     console.log(this.url)

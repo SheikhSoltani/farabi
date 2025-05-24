@@ -42,6 +42,7 @@ import router from "@/js/router";
 
 export default {
     name: 'BasketPage',
+  mixins: [seoMixin],
     data() {
         return {
             hidden: false,
@@ -109,6 +110,11 @@ export default {
         },
     },
     async mounted() {
+        this.updateSEO({
+  title: 'Корзина - Оформление заказа',
+  description: 'Оформление заказа продукции ТОО "Фараби-Клей". Быстрое оформление заказа через WhatsApp.',
+  canonical: 'https://idealf.kz/cart'
+});
         this.url = url;
         setTimeout(async () => {
             let arr = await this.get_basket_items();

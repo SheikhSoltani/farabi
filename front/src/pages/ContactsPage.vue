@@ -35,6 +35,7 @@ import router from "@/js/router";
 
 export default {
   name: 'ContactsPage',
+  mixins: [seoMixin],
   data() {
     return {
       cart_length:0
@@ -57,6 +58,11 @@ export default {
     },
   },
   async mounted() {
+    this.updateSEO({
+  title: 'Контакты - ТОО "Фараби-Клей"',
+  description: 'Контактная информация ТОО "Фараби-Клей": адрес в Алматы, телефоны для связи, электронная почта. Рыскулова 92а.',
+  canonical: 'https://idealf.kz/contacts'
+});
       setTimeout(async ()=>{
           this.cart_length =await this.get_cart_length()
             console.log(this.cart_length);

@@ -58,6 +58,7 @@ import {getConfig} from '@/js/cookie.js';
 import axios from '@/js/axios.js';
 export default {
     name: 'ItemsPage',
+  mixins: [seoMixin],
     data() {
       return {
         array:{items:[{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},{image:'', slug:'s',name:''},]},
@@ -142,6 +143,11 @@ export default {
         },
     },
     async mounted() {
+        this.updateSEO({
+  title: 'Каталог товаров - Краски, клей, водоэмульсия',
+  description: 'Полный каталог продукции ТОО "Фараби-Клей": краски, водоэмульсионные покрытия, клей, декоративные материалы. Оптовые и розничные цены.',
+  canonical: 'https://idealf.kz/items'
+});
         this.url=url;
         console.log(url)
         console.log(this.url)

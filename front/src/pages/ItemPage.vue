@@ -64,6 +64,7 @@ import {url} from '@/js/config.js'
 
 export default {
     name: 'ItemPage',
+  mixins: [seoMixin],
     props: {
         slug: String,
         id:Number
@@ -118,6 +119,11 @@ export default {
         },
     },
     async mounted() {
+        this.updateSEO({
+  title: `${this.item.item.name} - Купить в ТОО "Фараби-Клей"`,
+  description: `${this.item.item.name} от производителя ТОО "Фараби-Клей". ${this.item.item.description || 'Качественные лакокрасочные материалы'}.`,
+  canonical: `https://idealf.kz/item/${this.item.item.slug}`
+});
         setTimeout(async ()=>{
             this.item =await this.get_items()
             this.cart_length =await this.get_cart_length()
