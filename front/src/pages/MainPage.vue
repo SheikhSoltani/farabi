@@ -155,6 +155,7 @@ export default {
     console.log(this.url2)
       setTimeout(async ()=>{
             let arr =await this.get_items()
+arr.items.pop(); // удаляем последний элемент
             this.array = arr;
             this.cart_length =await this.get_cart_length()
             console.log(this.array);
